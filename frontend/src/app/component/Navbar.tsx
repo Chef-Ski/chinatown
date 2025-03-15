@@ -1,38 +1,40 @@
 "use client";
 
 import { usePathname } from 'next/navigation';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const Navbar = () => {
   const path = usePathname();
-  const removeAbs = document.querySelector(".removeAbsolute")
 
-  // Hide the navbar for any route that starts with "/explore"
-  if (path?.startsWith('/explore')) {
-    removeAbs?.classList.remove("absolute");
-    removeAbs?.classList.add("relative");
-  }
+  useEffect(() => {
+    // Run this only on the client after mount.
+    const removeAbs = document.querySelector(".removeAbsolute");
+    if (path?.startsWith('/explore')) {
+      removeAbs?.classList.remove("fixed");
+      removeAbs?.classList.add("relative");
+    }
+  }, [path]);
 
   return (
-    <div className="w-full absolute removeAbsolute">
+    <div className="w-full fixed top-0 z-50 removeAbsolute">
       <div className="sticky top-0">
-        <ul className="flex flex-row items-center justify-between px-12">
-          <div className="flex flex-row items-center gap-x-12 text-xl">
+        <ul className="flex flex-row items-center justify-between px-6 py-2 bg-[#D13523]">
+          <div className="flex flex-row items-center gap-x-6 text-lg text-white">
             <a href="/">
-              <img src="/postcss.config.png" alt="home logo" className="w-36 h-auto" />
+              <img src="/postcss.config.png" alt="home logo" className="w-20 h-auto" />
             </a>
             <li>CREATE</li>
             <li>EXPLORE</li>
           </div>
 
-          <div className="flex flex-row items-center gap-x-6 text-xl text-black">
+          <div className="flex flex-row items-center gap-x-4 text-lg text-white">
             <a href="">
-              <li className="border-2 border-black rounded-2xl px-8 py-2 backdrop-blur-lg hover:bg-gray-300">
+              <li className="border-2 border-white rounded-2xl px-4 py-1 hover:bg-[#FF5A41]">
                 Login
               </li>
             </a>
             <a href="">
-              <li className="border-2 border-black rounded-2xl px-8 py-2 hover:bg-gray-300 backdrop-blur-lg">
+              <li className="border-2 border-white rounded-2xl px-4 py-1 hover:bg-[#FF5A41]">
                 Sign Up
               </li>
             </a>

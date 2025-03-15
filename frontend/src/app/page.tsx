@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
+import Navbar from "./component/Navbar"; // Adjust the import path as needed
 
 export default function Home() {
   const bgRef = useRef(null);
@@ -190,21 +191,36 @@ export default function Home() {
 
   return (
     <div className="overflow-x-hidden bg-stone-50">
-      {/* Hero Section with Immediate Scaled Background */}
+      <Navbar />
+
+      {/* Modified Hero Section */}
       <div className="relative h-screen overflow-hidden">
-        {/* Background image wrapper with immediate scale */}
-        <div
-          ref={bgRef}
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: "url('/bg.webp')",
-            transform: "scale(1.1)",
-          }}
-        />
-        {/* Content over the background */}
+        <div className="absolute inset-0 bg-white">
+          <div className="absolute w-full h-full opacity-20 mix-blend-overlay">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+              <defs>
+                <pattern
+                  id="smallGrid"
+                  width="8"
+                  height="8"
+                  patternUnits="userSpaceOnUse"
+                >
+                  <path
+                    d="M8 0H0V8"
+                    fill="none"
+                    stroke="#e5e5e5"
+                    strokeWidth="0.5"
+                  />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#smallGrid)" />
+            </svg>
+          </div>
+        </div>
+
         <div className="relative z-10 flex flex-col items-center justify-center h-screen px-4 md:px-12">
           <motion.h2
-            className="hero-title text-7xl md:text-9xl font-extrabold uppercase tracking-tight text-white text-center"
+            className="hero-title text-7xl md:text-9xl font-extrabold uppercase tracking-tight text-center bg-gradient-to-r from-red-400 via-red-500 to-red-600 bg-clip-text text-transparent"
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1.2, delay: 0.3 }}
@@ -213,7 +229,7 @@ export default function Home() {
           </motion.h2>
 
           <motion.h1
-            className="hero-subtitle mt-8 text-[#FF5A41] text-center max-w-5xl uppercase text-4xl md:text-6xl font-bold tracking-wide"
+            className="hero-subtitle mt-8 text-black text-center max-w-5xl uppercase text-2xl md:text-3xl font-semibold tracking-normal"
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1, delay: 0.8 }}
@@ -222,40 +238,47 @@ export default function Home() {
           </motion.h1>
 
           <motion.div
-            className="hero-cta w-full flex justify-center items-center mt-16 md:mt-20"
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1.3 }}
-          >
-            <div className="relative inline-flex group">
-              <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#FF8A7E] to-[#D13523] rounded-xl blur-lg group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-pulse"></div>
-              <a
-                href="#"
-                title="Start preserving your stories"
-                className="relative inline-flex items-center justify-center px-8 md:px-12 py-4 md:py-6 font-bold text-white text-xl md:text-2xl transition-all duration-200 bg-[#D13523] font-pj rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 hover:bg-[#FF5A41]"
-                role="button"
-              >
-                Start Preserving Now
-                <svg
-                  className="w-5 h-5 ml-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  ></path>
-                </svg>
-              </a>
-            </div>
-          </motion.div>
+  className="hero-cta w-full flex justify-center items-center mt-16 md:mt-20"
+  initial={{ y: 30, opacity: 0 }}
+  animate={{ y: 0, opacity: 1 }}
+  transition={{ duration: 0.8, delay: 1.3 }}
+>
+  <div className="relative inline-flex group">
+    <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#FF8A7E] to-[#D13523] rounded-full blur-lg group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-pulse"></div>
+    <a
+      href="#"
+      title="Start preserving your stories"
+      className="relative inline-flex items-center justify-center px-8 md:px-12 py-4 md:py-6 
+                 font-bold text-white text-xl md:text-2xl 
+                 transition-all duration-200 
+                 bg-[#D13523] font-pj 
+                 rounded-full
+                 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 
+                 hover:bg-[#FF8A7E]"
+      role="button"
+    >
+      Start Preserving Now
+      <svg
+        className="w-5 h-5 ml-2"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M14 5l7 7m0 0l-7 7m7-7H3"
+        ></path>
+      </svg>
+    </a>
+  </div>
+</motion.div>
+
 
           <div className="absolute bottom-10 w-full flex justify-center">
-            <a href="#mission" className="text-white animate-bounce">
+            <a href="#mission" className="text-black animate-bounce">
               <svg
                 className="w-8 h-8"
                 fill="none"
