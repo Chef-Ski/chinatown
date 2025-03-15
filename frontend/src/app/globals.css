@@ -5,3 +5,25 @@
   --color-darkred: "#D13523";
 
 }
+
+.initialbg {
+  background-image: url("/blurredimg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+.initialbg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: inherit;
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: blur(10px); /* Adjust the blur intensity */
+  z-index: -1;
+}
+

@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { Delius } from "next/font/google";
+import { Quintessential } from "next/font/google";
 import "./globals.css";
 import Navbar from "./component/Navbar";
 
 
-const delius = Delius({
-  variable: "--font-delius",
+
+const quint = Quintessential({
+  variable: "--font-quintessential",
   weight: "400",
   subsets: ["latin"],
 });
@@ -24,9 +25,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${delius.variable} antialiased`}
-      >
+      <body className={`${quint.variable} antialiased`} style={{ fontFamily: "var(--font-quintessential)" }}>
+
         <Navbar/>
         {children}
       </body>
