@@ -14,7 +14,7 @@ export default function Home() {
         <div className="flex flex-col items-center justify-center h-screen gap-y-20 ">
           <h2 className="mt-36  text-9xl font-extrabold uppercase">Story Vault</h2>
           <h1 className="text-[#D13523] text-center max-w-5xl  uppercase text-6xl font-bold px-8">Preserving stories, bridging generations</h1>
-          <div className="w-full flex justify-center items-center mt-36">
+          <div className="w-full flex justify-center items-center mt-20">
 
           <div className="relative inline-flex  group">
             <div
@@ -31,7 +31,7 @@ export default function Home() {
         
       </div>
 
-      <div className="flex flex-row items-center justify-center gap-x-8 mt-96 px-12">
+      <div className="flex flex-row items-center justify-between gap-x-12 mt-96 px-12">
         <div className="flex flex-col items-start text-5xl font-bold max-w-2xl">
           <h2 className="">Who We Are</h2>
           <hr className="text-black border-4 border-black w-full" />
@@ -49,11 +49,11 @@ export default function Home() {
 
         </div>
         <div>
-          <img src="/img1.png" alt="" />
+          <img src="/img1.png" alt="" className="w-3xl h-auto shadow-2xl shadow-black rounded-md" />
         </div>
       </div>
 
-      <div className="flex flex-row-reverse items-center justify-center gap-x-8 mt-96 px-12">
+      <div className="flex flex-row-reverse items-center justify-between gap-x-8 mt-96 px-12">
         <div className="flex flex-col text-right items-end text-5xl font-bold max-w-2xl">
           <h2 className="">Who We Are</h2>
           <hr className="text-black border-4 border-black w-full" />
@@ -71,9 +71,13 @@ export default function Home() {
 
         </div>
         <div>
-          <img src="/img1.png" alt="" />
+          <img src="/img4.png" alt="" className="w-3xl h-auto shadow-2xl shadow-black rounded-md" />
         </div>
       </div>
+
+      <footer className="mt-36">
+
+      </footer>
     </div>
   );
 }
