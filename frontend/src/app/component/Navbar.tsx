@@ -7,7 +7,7 @@ const Navbar = () => {
                 <ul className='flex flex-row items-center justify-between px-12 '>
                     <div className='flex flex-row items-center gap-x-12 text-xl'>
                         <a href="/"><img src="/postcss.config.png" alt="home logo" className='w-36 h-auto' /></a>
-                        <li>CREATE</li>
+                        <a href="/create"><li className='hover:text-[#D13523]'>CREATE</li></a>
                         <li>EXPLORE</li>
                     </div>
 
