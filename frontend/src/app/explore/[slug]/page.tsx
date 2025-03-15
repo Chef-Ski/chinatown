@@ -160,7 +160,7 @@ const Sidebar = ({
   return (
     <aside className="w-full md:w-64 bg-white border-r border-gray-200 md:min-h-screen">
       <div className="p-4 border-b border-gray-200">
-        <h1 className="text-xl font-bold text-[#D13523]">Historical Voices</h1>
+        <h1 className="text-xl font-bold text-[#D13523]">Story Vault</h1>
         <p className="text-sm text-gray-500">Community Stories</p>
       </div>
       <nav className="py-4">
