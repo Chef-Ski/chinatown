@@ -11,9 +11,9 @@ const Navbar = () => {
                         <li>EXPLORE</li>
                     </div>
 
-                    <div className='flex flex-row items-center gap-x-6 text-xl'>
-                        <a href=""><li className='border-2 font-bold border-black rounded-2xl px-8 py-2 hover:bg-gray-300'>Login</li></a>
-                        <a href=""><li className='border-2 border-black rounded-2xl px-8 py-2 hover:bg-gray-300'>Sign Up</li></a>
+                    <div className='flex flex-row items-center gap-x-6 text-xl text-black'>
+                        <a href=""><li className='border-2 border-black rounded-2xl px-8 py-2 backdrop-blur-lg hover:bg-gray-300'>Login</li></a>
+                        <a href=""><li className='border-2 border-black rounded-2xl px-8 py-2 hover:bg-gray-300 backdrop-blur-lg'>Sign Up</li></a>
                     </div>
 
                 </ul>

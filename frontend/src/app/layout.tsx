@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import { Quintessential } from "next/font/google";
 import "./globals.css";
@@ -24,12 +25,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${quint.variable} antialiased`} style={{ fontFamily: "var(--font-quintessential)" }}>
+  <html lang="en">
+    <body className={`${quint.variable} antialiased`} style={{ fontFamily: "var(--font-quintessential)" }}>
 
-        <Navbar/>
-        {children}
-      </body>
-    </html>
+      <Navbar />
+      {children}
+    </body>
+  </html>
   );
 }
