@@ -201,6 +201,30 @@ export default function Home() {
 
   return (
     <div className="overflow-x-hidden bg-stone-50">
+      {/* Import Google Fonts */}
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&family=Fraunces:wght@400;500;600;700&display=swap');
+        
+        h1, h2, h3, .serif-font {
+          font-family: 'Playfair Display', serif;
+        }
+        
+        body, p, a, button, input, .sans-font {
+          font-family: 'Montserrat', sans-serif;
+        }
+        
+        .alt-serif {
+          font-family: 'Fraunces', serif;
+        }
+        
+        .btn-text {
+          font-family: 'Montserrat', sans-serif;
+          font-weight: 600;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+        }
+      `}</style>
+      
       <Navbar />
 
       {/* Hero Section */}
@@ -213,19 +237,21 @@ export default function Home() {
         {/* Hero Content */}
         <div className="relative z-10 flex flex-col items-center text-center">
           <motion.h2
-            className="hero-title text-7xl md:text-9xl font-extrabold uppercase tracking-tight bg-gradient-to-r from-red-400 via-red-500 to-red-600 bg-clip-text text-transparent"
+            className="hero-title text-6xl md:text-8xl font-extrabold tracking-tight bg-gradient-to-r from-red-400 via-red-500 to-red-600 bg-clip-text text-transparent"
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1.2, delay: 0.3 }}
+            style={{ fontFamily: "'Playfair Display', serif" }}
           >
             Story Vault
           </motion.h2>
 
           <motion.h1
-            className="hero-subtitle mt-6 text-black text-center max-w-5xl uppercase text-2xl md:text-3xl font-semibold tracking-normal"
+            className="hero-subtitle mt-6 text-black text-center max-w-5xl text-xl md:text-2xl font-medium tracking-wide"
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1, delay: 0.8 }}
+            style={{ fontFamily: "'Montserrat', sans-serif" }}
           >
             Preserving stories, bridging generations
           </motion.h1>
@@ -239,9 +265,9 @@ export default function Home() {
           >
             <a
               href="#"
-              className="relative px-8 py-4 text-xl md:text-2xl font-bold text-white bg-[#D13523] rounded-full shadow-lg hover:bg-[#FF8A7E] transition-all duration-300"
+              className="btn-text relative px-8 py-4 text-lg font-semibold text-white bg-[#D13523] rounded-md shadow-lg hover:bg-[#FF8A7E] transition-all duration-300"
             >
-              Start Preserving Now
+              Start Now
             </a>
           </motion.div>
         </div>
@@ -249,50 +275,44 @@ export default function Home() {
 
       {/* Scroll Down Indicator with Handle */}
       <button
-  onClick={() => handleScrollToSection("#mission")}
-  className="block mx-auto text-black focus:outline-none mt-[-50px]"
->
-  <svg
-    className="w-8 h-8 animate-bounce"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
-    {/* Vertical line */}
-    <line x1="12" y1="2" x2="12" y2="16" strokeWidth="2" strokeLinecap="round" />
-    {/* Arrowhead */}
-    <polyline
-      points="8,12 12,16 16,12"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-</button>
-
-
-
-
+        onClick={() => handleScrollToSection("#mission")}
+        className="block mx-auto text-black focus:outline-none mt-[-50px]"
+      >
+        <svg
+          className="w-8 h-8 animate-bounce"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <line x1="12" y1="2" x2="12" y2="16" strokeWidth="2" strokeLinecap="round" />
+          <polyline
+            points="8,12 12,16 16,12"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </button>
 
       {/* Mission Section */}
       <div id="mission" className="reveal-section py-24 bg-stone-50">
         <div className="container mx-auto px-6 md:px-12">
           <div className="flex flex-col md:flex-row items-center justify-between gap-x-12 gap-y-16">
-            <div className="flex flex-col items-start text-3xl md:text-5xl font-bold max-w-2xl order-2 md:order-1">
-              <h2 className="relative">
+            <div className="flex flex-col items-start order-2 md:order-1">
+              <h2 className="relative text-4xl md:text-5xl font-bold max-w-2xl" style={{ fontFamily: "'Playfair Display', serif" }}>
                 Our Mission
                 <span className="absolute -bottom-3 left-0 w-24 h-2 bg-[#D13523]"></span>
               </h2>
-              <p className="text-lg md:text-2xl font-normal pt-12 text-neutral-700 leading-relaxed">
+              <p className="text-lg md:text-xl font-normal pt-12 text-neutral-700 leading-relaxed" style={{ fontFamily: "'Montserrat', sans-serif" }}>
                 We are dedicated to preserving the rich cultural heritage of Chinatown by leveraging technology to bridge language barriers and connect generations. Through innovative translation and storytelling tools, we ensure that wisdom, traditions, and personal histories are never lost to time or language differences.
               </p>
-              <p className="text-lg md:text-2xl font-normal pt-6 text-neutral-700 leading-relaxed">
+              <p className="text-lg md:text-xl font-normal pt-6 text-neutral-700 leading-relaxed" style={{ fontFamily: "'Montserrat', sans-serif" }}>
                 Every family has stories worth preserving. Our platform makes it possible to capture, translate, and share these invaluable narratives across languages and generations.
               </p>
               <a
                 href="#features"
-                className="relative inline-flex mt-8 items-center justify-start py-3 pl-4 pr-12 overflow-hidden font-semibold text-xl text-black transition-all duration-150 ease-in-out rounded hover:pl-10 hover:pr-6 bg-gray-200 group"
+                className="btn-text relative inline-flex mt-8 items-center justify-start py-3 pl-4 pr-10 overflow-hidden font-medium text-base text-black transition-all duration-150 ease-in-out rounded hover:pl-10 hover:pr-6 bg-gray-200 group"
               >
                 <span className="absolute bottom-0 left-0 w-full h-1 transition-all duration-150 ease-in-out bg-[#D13523] group-hover:h-full"></span>
                 <span className="absolute right-0 pr-4 duration-200 ease-out group-hover:translate-x-12">
@@ -306,7 +326,7 @@ export default function Home() {
                   </svg>
                 </span>
                 <span className="relative w-full text-left transition-colors duration-200 ease-in-out group-hover:text-white">
-                  Discover Features
+                  Features
                 </span>
               </a>
             </div>
@@ -326,9 +346,9 @@ export default function Home() {
       <div id="features" className="reveal-section py-24 bg-neutral-100">
         <div className="container mx-auto px-6 md:px-12">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-bold">How It Works</h2>
+            <h2 className="text-4xl md:text-5xl font-bold alt-serif">How It Works</h2>
             <div className="w-24 h-2 bg-[#D13523] mx-auto mt-4"></div>
-            <p className="text-xl text-neutral-600 max-w-3xl mx-auto mt-6">
+            <p className="text-lg text-neutral-600 max-w-3xl mx-auto mt-6 sans-font">
               Our innovative platform makes it easy to preserve family stories across language barriers.
             </p>
           </div>
@@ -336,8 +356,8 @@ export default function Home() {
             {features.map((feature, index) => (
               <div key={index} className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
                 <div className="mb-4">{feature.icon}</div>
-                <h3 className="text-2xl font-bold mb-3">{feature.title}</h3>
-                <p className="text-neutral-600">{feature.description}</p>
+                <h3 className="text-xl font-bold mb-3 serif-font">{feature.title}</h3>
+                <p className="text-neutral-600 sans-font">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -348,20 +368,20 @@ export default function Home() {
       <div className="reveal-section py-24 bg-stone-50">
         <div className="container mx-auto px-6 md:px-12">
           <div className="flex flex-col md:flex-row-reverse items-center justify-between gap-x-12 gap-y-16">
-            <div className="flex flex-col text-left md:text-right items-start md:items-end text-3xl md:text-5xl font-bold max-w-2xl">
-              <h2 className="relative">
+            <div className="flex flex-col text-left md:text-right items-start md:items-end max-w-2xl">
+              <h2 className="relative text-4xl md:text-5xl font-bold serif-font">
                 Bridging Divides
                 <span className="absolute -bottom-3 right-0 w-24 h-2 bg-[#D13523]"></span>
               </h2>
-              <p className="text-lg md:text-2xl font-normal pt-12 text-neutral-700 leading-relaxed">
+              <p className="text-lg md:text-xl font-normal pt-12 text-neutral-700 leading-relaxed sans-font">
                 Language barriers shouldn't prevent stories from being shared. Our translation technology allows grandchildren to hear their grandparents' stories in their own language, preserving the emotional connection even when they don't share a common tongue.
               </p>
-              <p className="text-lg md:text-2xl font-normal pt-6 text-neutral-700 leading-relaxed">
+              <p className="text-lg md:text-xl font-normal pt-6 text-neutral-700 leading-relaxed sans-font">
                 With Story Vault, cultural wisdom and family histories can be preserved authentically and accessed by future generations, regardless of language differences.
               </p>
               <a
                 href="#testimonials"
-                className="relative inline-flex mt-8 items-center justify-start py-3 pl-4 pr-12 overflow-hidden font-semibold text-xl text-black transition-all duration-150 ease-in-out rounded hover:pl-10 hover:pr-6 bg-gray-200 group"
+                className="btn-text relative inline-flex mt-8 items-center justify-start py-3 pl-4 pr-10 overflow-hidden font-medium text-base text-black transition-all duration-150 ease-in-out rounded hover:pl-10 hover:pr-6 bg-gray-200 group"
               >
                 <span className="absolute bottom-0 left-0 w-full h-1 transition-all duration-150 ease-in-out bg-[#D13523] group-hover:h-full"></span>
                 <span className="absolute right-0 pr-4 duration-200 ease-out group-hover:translate-x-12">
@@ -375,7 +395,7 @@ export default function Home() {
                   </svg>
                 </span>
                 <span className="relative w-full text-left transition-colors duration-200 ease-in-out group-hover:text-white">
-                  See Success Stories
+                  Stories
                 </span>
               </a>
             </div>
@@ -391,9 +411,9 @@ export default function Home() {
       <div id="testimonials" className="reveal-section py-24 bg-neutral-800 text-white">
         <div className="container mx-auto px-6 md:px-12">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-bold">Success Stories</h2>
+            <h2 className="text-4xl md:text-5xl font-bold serif-font">Success Stories</h2>
             <div className="w-24 h-2 bg-[#D13523] mx-auto mt-4"></div>
-            <p className="text-xl text-neutral-300 max-w-3xl mx-auto mt-6">
+            <p className="text-lg text-neutral-300 max-w-3xl mx-auto mt-6 sans-font">
               Hear from families who have preserved their heritage with Story Vault.
             </p>
           </div>
@@ -408,13 +428,13 @@ export default function Home() {
               >
                 <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
               </svg>
-              <p className="text-xl md:text-2xl mb-8 relative z-10">
+              <p className="text-xl md:text-2xl mb-8 relative z-10 alt-serif font-light italic">
                 "{testimonials[currentTestimonial].quote}"
               </p>
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-semibold text-xl">{testimonials[currentTestimonial].author}</p>
-                  <p className="text-neutral-400">{testimonials[currentTestimonial].role}</p>
+                  <p className="font-semibold text-xl serif-font">{testimonials[currentTestimonial].author}</p>
+                  <p className="text-neutral-400 sans-font">{testimonials[currentTestimonial].role}</p>
                 </div>
                 <div className="flex space-x-3">
                   <button
@@ -460,9 +480,9 @@ export default function Home() {
       <div id="faq" className="reveal-section py-24 bg-stone-50">
         <div className="container mx-auto px-6 md:px-12">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-bold">Common Questions</h2>
+            <h2 className="text-4xl md:text-5xl font-bold serif-font">Common Questions</h2>
             <div className="w-24 h-2 bg-[#D13523] mx-auto mt-4"></div>
-            <p className="text-xl text-neutral-600 max-w-3xl mx-auto mt-6">
+            <p className="text-lg text-neutral-600 max-w-3xl mx-auto mt-6 sans-font">
               Everything you need to know about Story Vault.
             </p>
           </div>
@@ -475,7 +495,7 @@ export default function Home() {
                     activeFAQ === index ? "bg-neutral-200" : "bg-white"
                   } shadow-md hover:shadow-lg transition-all duration-200`}
                 >
-                  <span className="text-xl font-semibold">{faq.question}</span>
+                  <span className="text-lg font-semibold alt-serif">{faq.question}</span>
                   <svg
                     className={`w-6 h-6 transform transition-transform duration-200 ${activeFAQ === index ? "rotate-180" : ""}`}
                     fill="none"
@@ -492,7 +512,7 @@ export default function Home() {
                   }`}
                 >
                   <div className="p-6 bg-white rounded-b-lg shadow-md">
-                    <p className="text-lg text-neutral-700">{faq.answer}</p>
+                    <p className="text-lg text-neutral-700 sans-font">{faq.answer}</p>
                   </div>
                 </div>
               </div>
