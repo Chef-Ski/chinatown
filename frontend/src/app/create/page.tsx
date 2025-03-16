@@ -3,6 +3,10 @@
 import React, { useState } from "react";
 import { CloudUpload } from "lucide-react";
 import { Listbox } from "@headlessui/react";
+import fs from "fs";
+import path from "path";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { spawn } from "child_process";
 
 const languages = [
   { code: "af", label: "Afrikaans" },
@@ -263,23 +267,25 @@ const Page = () => {
     }
   };
 
+  const pythonscript = "./backend/test.py"
+
   const handleUpload = async () => {
     if (!file) return alert("Please select an audio file first.");
-
+  
     const formData = new FormData();
     formData.append("audio", file);
-    // Append selected language code from LanguageSelector
     formData.append(
       "translationLang",
       (document.querySelector('input[name="translationLang"]') as any)?.value || "en"
     );
     formData.append("gender", gender);
-
+  
     try {
-      const response = await fetch("/api/upload", {
+      const response = await fetch("http://localhost:5000/api/upload", { // Change this URL to match your backend
         method: "POST",
         body: formData,
       });
+  
       if (response.ok) {
         alert("File uploaded successfully!");
       } else {
@@ -290,6 +296,7 @@ const Page = () => {
       alert("An error occurred while uploading.");
     }
   };
+  
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-6 py-8 font-sans">
