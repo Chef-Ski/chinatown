@@ -10,11 +10,25 @@
 }
 
 .initialbg {
-  background-image: url("/bgimg.webp");
+  position: relative;
+  z-index: 1;
+}
+
+.initialbg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/improvebg.png");
   background-repeat: no-repeat;
   background-size: cover;
-
+  background-color: rgb(67, 66, 66);
+  background-blend-mode: multiply;
+  z-index: -1;
 }
+
 html {
   scroll-behavior: smooth;
 }
