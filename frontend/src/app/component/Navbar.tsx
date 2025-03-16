@@ -21,7 +21,7 @@ const Navbar = () => {
         <ul className="flex flex-row items-center justify-between px-6 bg-[#D13523]">
           <div className="flex flex-row items-center gap-x-6 text-lg text-white">
             <a href="/">
-              <img src="/postcss.config.png" alt="home logo" className="w-20 h-auto" />
+              <img src="/postcss.config.png" alt="home logo" className="w-16 h-auto" />
             </a>
             <li className="text-lg text-white">
               <a href="/create">CREATE</a>

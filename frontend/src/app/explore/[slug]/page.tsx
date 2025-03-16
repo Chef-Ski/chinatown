@@ -176,7 +176,7 @@ const Sidebar = ({
             <li key={community.id}>
               <Link
                 href={`/explore/${community.id}`}
-                className={`flex items-center justify-between px-6 py-3 ${
+                className={`flex items-center px-6 py-3 ${
                   community.id === currentSlug
                     ? 'bg-stone-100 text-[#D13523] font-medium border-l-4 border-[#D13523]'
                     : 'text-stone-700 hover:bg-stone-100 hover:text-[#D13523] transition-all duration-300'
@@ -208,7 +208,6 @@ export default function CommunityPage() {
 
   const activeCommunity =
     COMMUNITIES.find((community) => community.id === slug) || COMMUNITIES[0];
-
   const posts = slug && SAMPLE_POSTS[slug] ? SAMPLE_POSTS[slug] : DEFAULT_POSTS;
 
   const togglePlay = (postId: number) => {
@@ -221,13 +220,8 @@ export default function CommunityPage() {
   return (
     <div key={slug} className="min-h-screen bg-stone-50">
       <Head>
-        <title>
-          {activeCommunity?.name || 'Communities'} | Historical Voices
-        </title>
-        <meta
-          name="description"
-          content="Listen to historical accounts from community members"
-        />
+        <title>{activeCommunity?.name || 'Communities'} | Historical Voices</title>
+        <meta name="description" content="Listen to historical accounts from community members" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex flex-col md:flex-row">
@@ -266,32 +260,12 @@ export default function CommunityPage() {
                       className="w-12 h-12 rounded-full flex items-center justify-center bg-[#D13523] text-white transition-all duration-300 hover:shadow-md"
                     >
                       {isPlaying[post.id] ? (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <rect x="6" y="4" width="4" height="16" />
                           <rect x="14" y="4" width="4" height="16" />
                         </svg>
                       ) : (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <polygon points="5 3 19 12 5 21 5 3" />
                         </svg>
                       )}
@@ -309,57 +283,18 @@ export default function CommunityPage() {
                 <div className="mt-3 flex items-center justify-between pt-2 border-t border-stone-100">
                   <div className="flex items-center space-x-4">
                     <button className="flex items-center text-stone-500 hover:text-[#D13523] transition-colors duration-300">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
                       </svg>
                       <span className="ml-1 text-sm">{post.likes}</span>
                     </button>
                     <button className="flex items-center text-stone-500 hover:text-[#D13523] transition-colors duration-300">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                       </svg>
                       <span className="ml-1 text-sm">{post.comments}</span>
                     </button>
-                    <button className="flex items-center text-stone-500 hover:text-[#D13523]">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M17 1l4 4-4 4" />
-                      </svg>
-                      <span className="ml-1 text-sm">Share</span>
-                    </button>
                   </div>
-                  <button className="text-[#D13523] hover:text-[#FF8A7E] text-sm font-medium">
-                    View Full Story
-                  </button>
                 </div>
               </div>
             ))}

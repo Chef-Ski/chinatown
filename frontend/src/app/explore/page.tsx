@@ -1,11 +1,32 @@
 "use client";
 
+import { useParams } from 'next/navigation';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useState } from 'react';
 
-// Sample community data (for Sidebar navigation)
-const COMMUNITIES = [
+// TypeScript interfaces for better reusability
+export interface Community {
+  id: string;
+  name: string;
+  postCount: number;
+  description?: string;
+}
+
+export interface Post {
+  id: number;
+  user: { name: string; handle: string };
+  title: string;
+  content: string;
+  audioLength: number;
+  progress: number;
+  likes: number;
+  comments: number;
+  timestamp: string;
+}
+
+// Sample community data (replace with your API or database calls)
+const COMMUNITIES: Community[] = [
   { id: 'vietnam-war', name: 'Vietnam War', postCount: 245 },
   { id: 'pakistan-partition', name: 'Pakistan Partition', postCount: 187 },
   { id: 'north-korean-escape', name: 'North Korean Escape', postCount: 113 },
@@ -16,45 +37,126 @@ const COMMUNITIES = [
   { id: 'fall-of-berlin-wall', name: 'Fall of Berlin Wall', postCount: 127 },
 ];
 
-// Sample posts data for the Top Stories page
-const TOP_STORIES_POSTS = [
+// Sample posts data for each community
+const SAMPLE_POSTS: Record<string, Post[]> = {
+  'vietnam-war': [
+    {
+      id: 1,
+      user: { name: "James Wilson", handle: "jwilson" },
+      title: "My Father's Letters from Da Nang",
+      content: "These letters were written during the spring of 1968...",
+      audioLength: 320,
+      progress: 0,
+      likes: 42,
+      comments: 7,
+      timestamp: "2d ago",
+    },
+    {
+      id: 2,
+      user: { name: "Minh Nguyen", handle: "mnguyen" },
+      title: "Returning to Saigon After 40 Years",
+      content: "When I left as a child, I never thought I'd return...",
+      audioLength: 415,
+      progress: 30,
+      likes: 87,
+      comments: 13,
+      timestamp: "5d ago",
+    },
+    {
+      id: 3,
+      user: { name: "Robert Johnson", handle: "rjohnson" },
+      title: "The Forgotten Battalion: Oral History Project",
+      content: "We interviewed 24 veterans from the 3rd Battalion...",
+      audioLength: 620,
+      progress: 0,
+      likes: 124,
+      comments: 19,
+      timestamp: "1w ago",
+    },
+  ],
+  'pakistan-partition': [
+    {
+      id: 1,
+      user: { name: "Amina Khan", handle: "akhan" },
+      title: "Grandmother's Journey from Amritsar to Lahore",
+      content: "In August 1947, my grandmother left everything behind...",
+      audioLength: 380,
+      progress: 50,
+      likes: 63,
+      comments: 11,
+      timestamp: "3d ago",
+    },
+    {
+      id: 2,
+      user: { name: "Raj Patel", handle: "rpatel" },
+      title: "Voices of Divided Families",
+      content: "This collection shares stories from families separated...",
+      audioLength: 540,
+      progress: 0,
+      likes: 97,
+      comments: 24,
+      timestamp: "1w ago",
+    },
+  ],
+  'north-korean-escape': [
+    {
+      id: 1,
+      user: { name: "Soo-Jin Park", handle: "sjpark" },
+      title: "Three Attempts Across the River",
+      content: "My journey to freedom took three attempts over two years...",
+      audioLength: 475,
+      progress: 15,
+      likes: 112,
+      comments: 31,
+      timestamp: "2d ago",
+    },
+    {
+      id: 2,
+      user: { name: "Anonymous", handle: "anon_survivor" },
+      title: "Life in Pyongyang Before Escape",
+      content: "For safety reasons, I remain anonymous, but this is my story...",
+      audioLength: 390,
+      progress: 0,
+      likes: 84,
+      comments: 17,
+      timestamp: "4d ago",
+    },
+  ],
+};
+
+// Default posts if no specific posts exist for a community
+const DEFAULT_POSTS: Post[] = [
   {
     id: 1,
-    user: { name: "Alice Smith", handle: "asmith" },
-    title: "Memories of Saigon: The Last Days",
-    content: "When the helicopters flew over our neighborhood, I knew our lives would never be the same. My father gathered only what we could carry...",
-    audioLength: 300,
-    progress: 15,
-    likes: 50,
-    comments: 10,
-    timestamp: "1d ago",
-  },
-  {
-    id: 2,
-    user: { name: "Bob Johnson", handle: "bjohnson" },
-    title: "My Grandmother's Escape from East Berlin",
-    content: "The wall had been up for three years when my grandmother decided she couldn't live divided from her family any longer. With nothing but a small suitcase...",
-    audioLength: 420,
-    progress: 30,
-    likes: 75,
-    comments: 15,
-    timestamp: "2d ago",
-  },
-  {
-    id: 3,
-    user: { name: "Maria Gonzalez", handle: "mgonzalez" },
-    title: "Life Before the Revolution",
-    content: "Havana was a different world before 1959. My grandfather owned a small tobacco shop near the Malecón. Tourists from America would come and...",
-    audioLength: 380,
+    user: { name: "Community Member", handle: "member1" },
+    title: "My Personal Account",
+    content: "This is my story of what happened during this historical event...",
+    audioLength: 360,
     progress: 0,
-    likes: 42,
+    likes: 45,
     comments: 8,
     timestamp: "3d ago",
   },
+  {
+    id: 2,
+    user: { name: "Historical Society", handle: "histsociety" },
+    title: "Collected Oral Histories",
+    content: "We've gathered testimonies from 50 participants and witnesses...",
+    audioLength: 480,
+    progress: 20,
+    likes: 72,
+    comments: 14,
+    timestamp: "1w ago",
+  },
 ];
 
-// Reusable Sidebar component for navigation
-const Sidebar = ({ communities, currentSlug }) => {
+const Sidebar = ({
+  communities,
+  currentSlug,
+}: {
+  communities: Community[];
+  currentSlug: string | undefined;
+}) => {
   return (
     <aside className="w-full md:w-72 bg-stone-50 border-r border-stone-200 md:min-h-screen">
       <div className="p-6 border-b border-stone-200">
@@ -81,9 +183,7 @@ const Sidebar = ({ communities, currentSlug }) => {
                 }`}
               >
                 <span>{community.name}</span>
-                <span className="text-xs font-medium bg-white px-2 py-1 rounded-full shadow-sm border border-stone-200">
-                  {community.postCount}
-                </span>
+                {/* Removed post count */}
               </Link>
             </li>
           ))}
@@ -103,10 +203,15 @@ const Sidebar = ({ communities, currentSlug }) => {
   );
 };
 
-export default function TopStoriesPage() {
-  const [isPlaying, setIsPlaying] = useState({});
+export default function CommunityPage() {
+  const { slug } = useParams();
+  const [isPlaying, setIsPlaying] = useState<{ [key: number]: boolean }>({});
 
-  const togglePlay = (postId) => {
+  const activeCommunity =
+    COMMUNITIES.find((community) => community.id === slug) || COMMUNITIES[0];
+  const posts = slug && SAMPLE_POSTS[slug] ? SAMPLE_POSTS[slug] : DEFAULT_POSTS;
+
+  const togglePlay = (postId: number) => {
     setIsPlaying((prev) => ({
       ...prev,
       [postId]: !prev[postId],
@@ -114,40 +219,27 @@ export default function TopStoriesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-stone-50">
+    <div key={slug} className="min-h-screen bg-stone-50">
       <Head>
-        <title>Top Stories | Story Vault</title>
-        <meta name="description" content="Top historical stories from community members" />
+        <title>{activeCommunity?.name || 'Communities'} | Historical Voices</title>
+        <meta name="description" content="Listen to historical accounts from community members" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      
       <div className="flex flex-col md:flex-row">
-        {/* Sidebar Navigation */}
-        <Sidebar communities={COMMUNITIES} currentSlug="vietnam-war" />
-        
-        {/* Main Content using SAAS-friendly sans-serif font */}
-        <main className="flex-1 p-6 md:p-8 lg:p-12 font-sans">
-          <header className="bg-white rounded-xl p-8 mb-8 shadow-sm border border-stone-100">
-            <div>
-              <h1 className="text-3xl font-bold tracking-tight text-[#D13523]">
-                Top Stories
-              </h1>
-              <p className="text-stone-600 mt-2 text-lg">
-                Discover the most popular and impactful historical accounts.
-              </p>
-            </div>
+        <Sidebar communities={COMMUNITIES} currentSlug={slug} />
+        <main className="flex-1 p-6 font-sans">
+          <header className="bg-white rounded-xl p-6 mb-6 shadow-sm border border-stone-100">
+            <h1 className="text-3xl font-bold text-[#D13523]">
+              {activeCommunity?.name || 'Communities'}
+            </h1>
           </header>
-          
-          {/* Top Stories Posts */}
-          <div className="space-y-8">
-            {TOP_STORIES_POSTS.map((post) => (
+          <div className="space-y-6">
+            {posts.map((post) => (
               <div
                 key={post.id}
                 className="bg-white rounded-xl p-6 shadow-sm border border-stone-100 hover:shadow-md transition-all duration-300"
               >
-                {/* User Info */}
                 <div className="flex items-center mb-4">
-                  {/* Profile Icon with plain background */}
                   <div className="h-12 w-12 rounded-full bg-[#D13523] overflow-hidden flex-shrink-0">
                     <div className="h-full w-full flex items-center justify-center text-white font-bold text-lg">
                       {post.user.name.charAt(0)}
@@ -158,16 +250,10 @@ export default function TopStoriesPage() {
                     <p className="text-sm text-stone-500">@{post.user.handle}</p>
                   </div>
                 </div>
-                
-                {/* Post Title */}
                 <h3 className="text-xl font-bold mb-3 text-[#D13523]">
                   {post.title}
                 </h3>
-                
-                {/* Post Content Preview */}
                 <p className="text-stone-700 mb-6 leading-relaxed">{post.content}</p>
-                
-                {/* Audio Player */}
                 <div className="bg-stone-50 rounded-xl p-4 mb-4 border border-stone-100">
                   <div className="flex items-center mb-2">
                     <button
@@ -175,32 +261,12 @@ export default function TopStoriesPage() {
                       className="w-12 h-12 rounded-full flex items-center justify-center bg-[#D13523] text-white transition-all duration-300 hover:shadow-md"
                     >
                       {isPlaying[post.id] ? (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <rect x="6" y="4" width="4" height="16" />
                           <rect x="14" y="4" width="4" height="16" />
                         </svg>
                       ) : (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <polygon points="5 3 19 12 5 21 5 3" />
                         </svg>
                       )}
@@ -213,48 +279,24 @@ export default function TopStoriesPage() {
                         />
                       </div>
                     </div>
-                    <span className="ml-4 text-sm font-medium text-stone-500">
-                      {Math.floor((post.audioLength * post.progress) / 100)}s / {post.audioLength}s
-                    </span>
                   </div>
                 </div>
-                
-                {/* Interaction Buttons */}
-                <div className="flex items-center justify-between pt-4 border-t border-stone-100">
-                  <div className="flex items-center space-x-6">
+                <div className="mt-3 flex items-center justify-between pt-2 border-t border-stone-100">
+                  <div className="flex items-center space-x-4">
                     <button className="flex items-center text-stone-500 hover:text-[#D13523] transition-colors duration-300">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
                       </svg>
-                      <span className="ml-2 text-sm font-medium">{post.likes}</span>
+                      <span className="ml-1 text-sm">{post.likes}</span>
                     </button>
                     <button className="flex items-center text-stone-500 hover:text-[#D13523] transition-colors duration-300">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                       </svg>
-                      <span className="ml-2 text-sm font-medium">{post.comments}</span>
+                      <span className="ml-1 text-sm">{post.comments}</span>
                     </button>
                   </div>
+                  {/* Share and View Full Story buttons removed */}
                 </div>
               </div>
             ))}
