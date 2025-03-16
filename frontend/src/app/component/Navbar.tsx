@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState, useRef } from "react";
-import { auth } from "../firebaseConfig"; // Adjust the path as needed
+import { auth } from "../firebase"; // Adjust the path as needed
 import { onAuthStateChanged, signOut } from "firebase/auth";
 
 const Navbar = () => {
@@ -92,12 +92,12 @@ const Navbar = () => {
               </div>
             ) : (
               <>
-                <a href="/auth?mode=login">
+                <a href="/auth/login">
                   <li className="text-lg uppercase text-white px-4 py-1 border border-white rounded-lg hover:bg-white hover:text-[#D13523] transition-all duration-300">
                     Login
                   </li>
                 </a>
-                <a href="/auth?mode=signup">
+                <a href="/auth/signup">
                   <li className="text-lg uppercase text-white px-4 py-1 border border-white rounded-lg hover:bg-white hover:text-[#D13523] transition-all duration-300">
                     Sign Up
                   </li>
