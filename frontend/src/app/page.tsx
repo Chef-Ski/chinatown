@@ -75,7 +75,7 @@ export default function Home() {
     {
       question: "How does the voice translation technology work?",
       answer:
-        "Our AI-powered system captures spoken stories in any language, transcribes them with 98% accuracy, and translates while preserving emotional tone and cultural context. The story can then be played back in any of our 47 supported languages, maintaining the original speaker's vocal character and emotional nuances.",
+        "Our AI-powered system captures spoken stories in any language, transcribes them with 98% accuracy, and translates while preserving emotional tone and cultural context. The story can then be played back in any of our 80 supported languages, maintaining the original speaker's vocal character and emotional nuances.",
     },
     {
       question: "Can I control who has access to my family's stories?",
