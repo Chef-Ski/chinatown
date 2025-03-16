@@ -203,7 +203,9 @@ export default function Home() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
-            <span className="text-sm md:text-base font-medium text-[#D13523]">   Preserving Cultures and Communities Through Stories</span>
+            <span className="text-sm md:text-base font-medium text-[#D13523]">
+              Preserving Cultures and Communities Through Stories
+            </span>
           </motion.div>
 
           <motion.h1
@@ -218,14 +220,13 @@ export default function Home() {
           </motion.h1>
 
           <motion.h2
-            className="hero-subtitle mt-8 text-white font-bold text-center max-w-2xl mx-auto text-lg sm:text-xl md:text-2xl  leading-relaxed"
+            className="hero-subtitle mt-8 text-white font-bold text-center max-w-2xl mx-auto text-lg sm:text-xl md:text-2xl leading-relaxed"
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1, delay: 0.8 }}
           >
             Breaking language barriers to preserve family stories across generations. Capture, translate, and share your cultural heritage like never before.
           </motion.h2>
-
 
           {/* CTA Buttons */}
           <motion.div
@@ -235,7 +236,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 1.3 }}
           >
             <a
-              href="#"
+              href="/explore"
               className="px-8 py-4 text-lg md:text-xl font-bold text-white bg-[#D13523] rounded-full shadow-lg hover:bg-[#FF8A7E] transition-all duration-300 flex items-center justify-center"
             >
               Start Preserving Stories
@@ -245,13 +246,15 @@ export default function Home() {
             </a>
             <a
               href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                alert("Coming soon!");
+              }}
               className="px-8 py-4 text-lg md:text-xl font-bold text-[#D13523] bg-white border-2 border-[#D13523] rounded-full shadow-md hover:bg-stone-50 transition-all duration-300"
             >
               Watch Demo
             </a>
           </motion.div>
-
-          
         </div>
       </div>
 
