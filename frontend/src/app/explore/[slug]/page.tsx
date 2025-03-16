@@ -188,13 +188,16 @@ const Sidebar = ({
         </ul>
       </nav>
       <div className="mt-auto p-4 border-t border-gray-200">
-        <button className="w-full py-2 px-4 bg-[#DEA82B] text-white rounded-lg font-medium hover:bg-opacity-90 transition-colors">
-          Submit Your Story
-        </button>
+        <Link href="/create">
+          <button className="w-full py-2 px-4 bg-[#DEA82B] text-white rounded-lg font-medium hover:bg-opacity-90 transition-colors">
+            Upload A Story
+          </button>
+        </Link>
       </div>
     </aside>
   );
 };
+
 
 export default function CommunityPage() {
   const { slug } = useParams();

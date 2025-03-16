@@ -23,8 +23,12 @@ const Navbar = () => {
             <a href="/">
               <img src="/postcss.config.png" alt="home logo" className="w-20 h-auto" />
             </a>
-            <li className="text-lg text-white">CREATE</li>
-            <li className="text-lg text-white">EXPLORE</li>
+            <li className="text-lg text-white">
+              <a href="/create">CREATE</a>
+            </li>
+            <li className="text-lg text-white">
+              <a href="/explore">EXPLORE</a>
+            </li>
           </div>
 
           <div className="flex flex-row items-center gap-x-4 text-lg text-white">

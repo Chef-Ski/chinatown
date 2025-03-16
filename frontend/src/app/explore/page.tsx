@@ -44,15 +44,19 @@ const TOP_STORIES_POSTS = [
 ];
 
 // Reusable Sidebar component for navigation
+
+
 const Sidebar = ({
   communities,
+  currentSlug,
 }: {
-  communities: typeof COMMUNITIES;
+  communities: Community[];
+  currentSlug: string | undefined;
 }) => {
   return (
     <aside className="w-full md:w-64 bg-white border-r border-gray-200 md:min-h-screen">
       <div className="p-4 border-b border-gray-200">
-        <h1 className="text-xl font-bold text-[#D13523]">Historical Voices</h1>
+        <h1 className="text-xl font-bold text-[#D13523]">Story Vault</h1>
         <p className="text-sm text-gray-500">Community Stories</p>
       </div>
       <nav className="py-4">
@@ -64,7 +68,11 @@ const Sidebar = ({
             <li key={community.id}>
               <Link
                 href={`/explore/${community.id}`}
-                className="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-gray-100"
+                className={`flex items-center justify-between px-4 py-2 ${
+                  community.id === currentSlug
+                    ? 'bg-[#F0F2EF] text-[#D13523] font-medium'
+                    : 'text-gray-700 hover:bg-gray-100'
+                }`}
               >
                 <span>{community.name}</span>
                 <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
@@ -76,13 +84,18 @@ const Sidebar = ({
         </ul>
       </nav>
       <div className="mt-auto p-4 border-t border-gray-200">
-        <button className="w-full py-2 px-4 bg-[#DEA82B] text-white rounded-lg font-medium hover:bg-opacity-90 transition-colors">
-          Submit Your Story
-        </button>
+        <Link href="/create">
+          <button className="w-full py-2 px-4 bg-[#DEA82B] text-white rounded-lg font-medium hover:bg-opacity-90 transition-colors">
+            Upload A Story
+          </button>
+        </Link>
       </div>
     </aside>
   );
 };
+
+
+
 
 export default function TopStoriesPage() {
   const [isPlaying, setIsPlaying] = useState<{ [key: number]: boolean }>({});
