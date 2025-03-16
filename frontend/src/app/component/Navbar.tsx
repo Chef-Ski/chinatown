@@ -33,12 +33,12 @@ const Navbar = () => {
 
           <div className="flex flex-row items-center gap-x-4 text-lg text-white">
             <a href="">
-              <li className="text-lg text-white px-4 py-1 hover:bg-[#FF5A41]">
+              <li className="text-lg uppercase text-white px-4 py-1 border border-white rounded-lg hover:bg-[#FF5A41]">
                 Login
               </li>
             </a>
             <a href="">
-              <li className="text-lg text-white px-4 py-1 hover:bg-[#FF5A41]">
+              <li className="text-lg text-white px-4 py-1 border border-white rounded-lg hover:bg-[#FF5A41] uppercase">
                 Sign Up
               </li>
             </a>

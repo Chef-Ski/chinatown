@@ -189,10 +189,10 @@ export default function Home() {
       <Navbar />
 
       {/* Hero Section */}
-      <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <div className="relative min-h-screen flex items-center justify-center overflow-hidden initialbg">
         {/* Background Elements */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-stone-100 to-stone-50 opacity-90"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-stone-100 to-stone-50 opacity-50"></div>
           <DotPattern className="absolute w-full h-full [mask-image:radial-gradient(circle_at_center,white,transparent_70%)] opacity-40" />
         </div>
 
@@ -204,7 +204,7 @@ export default function Home() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
-            <span className="text-sm md:text-base font-medium text-[#D13523]">   Preserving Cultures and Communitys Through Storys</span>
+            <span className="text-sm md:text-base font-medium text-[#D13523]">   Preserving Cultures and Communitys Through Stories</span>
           </motion.div>
 
           <motion.h1
@@ -219,7 +219,7 @@ export default function Home() {
           </motion.h1>
 
           <motion.h2
-            className="hero-subtitle mt-8 text-stone-700 text-center max-w-2xl mx-auto text-lg sm:text-xl md:text-2xl font-medium leading-relaxed"
+            className="hero-subtitle mt-8 text-black font-bold text-center max-w-2xl mx-auto text-lg sm:text-xl md:text-2xl  leading-relaxed"
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1, delay: 0.8 }}
@@ -227,7 +227,7 @@ export default function Home() {
             Breaking language barriers to preserve family stories across generations. Capture, translate, and share your cultural heritage like never before.
           </motion.h2>
 
-   
+
           {/* CTA Buttons */}
           <motion.div
             className="hero-cta w-full flex flex-col sm:flex-row gap-4 justify-center mt-4 md:mt-8"
@@ -252,10 +252,7 @@ export default function Home() {
             </a>
           </motion.div>
 
-          {/* Trust indicators */}
-          <div className="mt-16 pt-6 border-t border-stone-200 w-full max-w-4xl mx-auto">
-            
-          </div>
+          
         </div>
       </div>
 
@@ -281,13 +278,13 @@ export default function Home() {
 
       {/* Mission Section */}
       <div id="mission" className="py-24 md:py-32 bg-white">
-        <div className="container mx-auto px-6 md:px-12">
+        <div className="container mx-auto md:px-12">
           <div className="flex flex-col md:flex-row items-center gap-x-16 gap-y-16">
             <div className="flex flex-col space-y-8 md:w-1/2 order-2 md:order-1">
               <div>
                 <span className="inline-block text-sm uppercase tracking-wider font-semibold text-[#D13523] mb-4">Our Purpose</span>
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
-                  Preserving Cultures and Communitys Through Storys
+                  Preserving Cultures and Communitys Through Stories
                 </h2>
               </div>
 
@@ -343,10 +340,19 @@ export default function Home() {
             </div>
 
             <div className="relative order-1 md:order-2 md:w-1/2">
-              
-             
+              {/* Added image with styling */}
+              <div className="relative rounded-2xl overflow-hidden shadow-xl">
+                <img
+                  src="/img1.png"
+                  alt="Preserving cultural stories"
+                  className="w-full h-full object-cover shadow-2xl shadow-black"
+                />
+                <div className="absolute inset-0 bg-gradient-to-tr from-[#D13523]/20 to-transparent"></div>
+              </div>
 
-              
+              {/* Decorative element */}
+              <div className="absolute -z-10 -bottom-6 -right-6 w-64 h-64 rounded-full bg-[#D13523]/10"></div>
+              <div className="absolute -z-10 -top-6 -left-6 w-32 h-32 rounded-full bg-[#D13523]/5"></div>
             </div>
           </div>
         </div>
@@ -388,7 +394,7 @@ export default function Home() {
                 </div>
               </div>
             ))}
-     </div>
+          </div>
         </div>
       </div>
 
