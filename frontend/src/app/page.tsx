@@ -254,13 +254,7 @@ export default function Home() {
 
           {/* Trust indicators */}
           <div className="mt-16 pt-6 border-t border-stone-200 w-full max-w-4xl mx-auto">
-            <p className="text-stone-500 text-sm mb-4 text-center">Trusted by cultural preservation institutions</p>
-            <div className="flex flex-wrap justify-center gap-8 opacity-70">
-              <img src="/logo-museum.png" alt="Museum Logo" className="h-8" />
-              <img src="/logo-heritage.png" alt="Heritage Foundation Logo" className="h-8" />
-              <img src="/logo-cultural.png" alt="Cultural Center Logo" className="h-8" />
-              <img src="/logo-university.png" alt="University Logo" className="h-8" />
-            </div>
+            
           </div>
         </div>
       </div>

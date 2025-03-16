@@ -21,10 +21,10 @@ const TOP_STORIES_POSTS = [
   {
     id: 1,
     user: { name: "Alice Smith", handle: "asmith" },
-    title: "Top Story One",
-    content: "This is the first top story about a major historical event...",
+    title: "Memories of Saigon: The Last Days",
+    content: "When the helicopters flew over our neighborhood, I knew our lives would never be the same. My father gathered only what we could carry...",
     audioLength: 300,
-    progress: 0,
+    progress: 15,
     likes: 50,
     comments: 10,
     timestamp: "1d ago",
@@ -32,50 +32,56 @@ const TOP_STORIES_POSTS = [
   {
     id: 2,
     user: { name: "Bob Johnson", handle: "bjohnson" },
-    title: "Top Story Two",
-    content: "This is another top story with impactful insights...",
+    title: "My Grandmother's Escape from East Berlin",
+    content: "The wall had been up for three years when my grandmother decided she couldn't live divided from her family any longer. With nothing but a small suitcase...",
     audioLength: 420,
-    progress: 0,
+    progress: 30,
     likes: 75,
     comments: 15,
     timestamp: "2d ago",
   },
-  // Add more posts as needed
+  {
+    id: 3,
+    user: { name: "Maria Gonzalez", handle: "mgonzalez" },
+    title: "Life Before the Revolution",
+    content: "Havana was a different world before 1959. My grandfather owned a small tobacco shop near the Malecón. Tourists from America would come and...",
+    audioLength: 380,
+    progress: 0,
+    likes: 42,
+    comments: 8,
+    timestamp: "3d ago",
+  },
 ];
 
 // Reusable Sidebar component for navigation
-
-
-const Sidebar = ({
-  communities,
-  currentSlug,
-}: {
-  communities: Community[];
-  currentSlug: string | undefined;
-}) => {
+const Sidebar = ({ communities, currentSlug }) => {
   return (
-    <aside className="w-full md:w-64 bg-white border-r border-gray-200 md:min-h-screen">
-      <div className="p-4 border-b border-gray-200">
-        <h1 className="text-xl font-bold text-[#D13523]">Story Vault</h1>
-        <p className="text-sm text-gray-500">Community Stories</p>
+    <aside className="w-full md:w-72 bg-stone-50 border-r border-stone-200 md:min-h-screen">
+      <div className="p-6 border-b border-stone-200">
+        <h1 className="text-2xl font-bold">
+          <span className="bg-gradient-to-r from-[#D13523] via-[#E05042] to-[#FF8A7E] bg-clip-text text-transparent">
+            Story Vault
+          </span>
+        </h1>
+        <p className="text-sm text-stone-600">Community Stories</p>
       </div>
-      <nav className="py-4">
-        <h2 className="px-4 mb-2 text-sm font-medium text-gray-500 uppercase">
+      <nav className="py-6">
+        <h2 className="px-6 mb-4 text-sm font-medium text-stone-500 uppercase tracking-wider">
           Communities
         </h2>
-        <ul>
+        <ul className="space-y-1">
           {communities.map((community) => (
             <li key={community.id}>
               <Link
                 href={`/explore/${community.id}`}
-                className={`flex items-center justify-between px-4 py-2 ${
+                className={`flex items-center justify-between px-6 py-3 ${
                   community.id === currentSlug
-                    ? 'bg-[#F0F2EF] text-[#D13523] font-medium'
-                    : 'text-gray-700 hover:bg-gray-100'
+                    ? 'bg-stone-100 text-[#D13523] font-medium border-l-4 border-[#D13523]'
+                    : 'text-stone-700 hover:bg-stone-100 hover:text-[#D13523] transition-all duration-300'
                 }`}
               >
                 <span>{community.name}</span>
-                <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+                <span className="text-xs font-medium bg-white px-2 py-1 rounded-full shadow-sm border border-stone-200">
                   {community.postCount}
                 </span>
               </Link>
@@ -83,9 +89,12 @@ const Sidebar = ({
           ))}
         </ul>
       </nav>
-      <div className="mt-auto p-4 border-t border-gray-200">
+      <div className="mt-auto p-6 border-t border-stone-200">
         <Link href="/create">
-          <button className="w-full py-2 px-4 bg-[#DEA82B] text-white rounded-lg font-medium hover:bg-opacity-90 transition-colors">
+          <button className="w-full py-3 px-6 bg-[#D13523] text-white rounded-full font-medium hover:bg-[#FF8A7E] transition-all duration-300 shadow-sm flex items-center justify-center">
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
             Upload A Story
           </button>
         </Link>
@@ -94,13 +103,10 @@ const Sidebar = ({
   );
 };
 
-
-
-
 export default function TopStoriesPage() {
-  const [isPlaying, setIsPlaying] = useState<{ [key: number]: boolean }>({});
+  const [isPlaying, setIsPlaying] = useState({});
 
-  const togglePlay = (postId: number) => {
+  const togglePlay = (postId) => {
     setIsPlaying((prev) => ({
       ...prev,
       [postId]: !prev[postId],
@@ -108,78 +114,96 @@ export default function TopStoriesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F0F2EF]">
+    <div className="min-h-screen bg-stone-50">
       <Head>
-        <title>Top Stories | Historical Voices</title>
-        <meta
-          name="description"
-          content="Top historical stories from community members"
-        />
+        <title>Top Stories | Story Vault</title>
+        <meta name="description" content="Top historical stories from community members" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      
       <div className="flex flex-col md:flex-row">
         {/* Sidebar Navigation */}
-        <Sidebar communities={COMMUNITIES} />
+        <Sidebar communities={COMMUNITIES} currentSlug="vietnam-war" />
+        
         {/* Main Content */}
-        <main className="flex-1 p-4">
-          <header className="bg-white rounded-lg p-6 mb-6 shadow-sm">
-            <h1 className="text-2xl font-bold text-[#D13523]">Top Stories</h1>
-            <p className="text-gray-600 mt-2">
-              Discover the most popular and impactful historical accounts.
-            </p>
-            <div className="flex mt-4">
-              <button className="bg-[#D13523] text-white px-4 py-2 rounded-lg mr-2 hover:bg-opacity-90 transition-colors">
-                Featured
-              </button>
-              <button className="bg-[#DEA82B] text-white px-4 py-2 rounded-lg hover:bg-opacity-90 transition-colors">
-                Latest
-              </button>
+        <main className="flex-1 p-6 md:p-8 lg:p-12">
+          <header className="bg-white rounded-xl p-8 mb-8 shadow-sm border border-stone-100">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+              <div>
+                <h1 className="text-3xl font-bold tracking-tight">
+                  <span className="bg-gradient-to-r from-[#D13523] via-[#E05042] to-[#FF8A7E] bg-clip-text text-transparent">
+                    Top Stories
+                  </span>
+                </h1>
+                <p className="text-stone-600 mt-2 text-lg">
+                  Discover the most popular and impactful historical accounts.
+                </p>
+              </div>
+              
+              <div className="flex mt-6 md:mt-0 space-x-4">
+                <button className="px-6 py-3 bg-[#D13523] text-white rounded-full font-medium hover:bg-[#FF8A7E] transition-all duration-300 shadow-sm flex items-center">
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                  </svg>
+                  Featured
+                </button>
+                <button className="px-6 py-3 text-[#D13523] bg-white border-2 border-[#D13523] rounded-full font-medium hover:bg-stone-50 transition-all duration-300 shadow-sm flex items-center">
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  Latest
+                </button>
+              </div>
             </div>
           </header>
+          
           {/* Top Stories Posts */}
-          <div className="space-y-6">
+          <div className="space-y-8">
             {TOP_STORIES_POSTS.map((post) => (
               <div
                 key={post.id}
-                className="bg-white rounded-xl p-4 shadow-sm border border-gray-100"
+                className="bg-white rounded-xl p-6 shadow-sm border border-stone-100 hover:shadow-md transition-all duration-300"
               >
                 {/* User Info */}
-                <div className="flex items-center mb-3">
-                  <div className="h-10 w-10 rounded-full bg-[#DEA82B] overflow-hidden flex-shrink-0">
-                    <div className="h-full w-full flex items-center justify-center text-white font-medium">
+                <div className="flex items-center mb-4">
+                  <div className="h-12 w-12 rounded-full bg-gradient-to-r from-[#D13523] to-[#FF8A7E] overflow-hidden flex-shrink-0 shadow-sm">
+                    <div className="h-full w-full flex items-center justify-center text-white font-bold text-lg">
                       {post.user.name.charAt(0)}
                     </div>
                   </div>
-                  <div className="ml-3">
-                    <p className="font-medium text-gray-900">{post.user.name}</p>
-                    <p className="text-sm text-gray-500">@{post.user.handle}</p>
+                  <div className="ml-4">
+                    <p className="font-medium text-stone-900">{post.user.name}</p>
+                    <p className="text-sm text-stone-500">@{post.user.handle}</p>
                   </div>
-                  <span className="ml-auto text-sm text-gray-500">
+                  <span className="ml-auto text-sm text-stone-500 bg-stone-50 px-3 py-1 rounded-full">
                     {post.timestamp}
                   </span>
                 </div>
+                
                 {/* Post Title */}
-                <h3 className="text-lg font-medium mb-2 text-[#D13523]">
+                <h3 className="text-xl font-bold mb-3 text-[#D13523]">
                   {post.title}
                 </h3>
+                
                 {/* Post Content Preview */}
-                <p className="text-gray-700 mb-4">{post.content}</p>
+                <p className="text-stone-700 mb-6 leading-relaxed">{post.content}</p>
+                
                 {/* Audio Player */}
-                <div className="bg-[#F0F2EF] rounded-lg p-3">
+                <div className="bg-stone-50 rounded-xl p-4 mb-4 border border-stone-100">
                   <div className="flex items-center mb-2">
                     <button
                       onClick={() => togglePlay(post.id)}
-                      className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                      className={`w-12 h-12 rounded-full flex items-center justify-center ${
                         isPlaying[post.id]
                           ? 'bg-[#D13523]'
-                          : 'bg-[#DEA82B]'
-                      } text-white`}
+                          : 'bg-gradient-to-r from-[#D13523] to-[#FF8A7E]'
+                      } text-white shadow-sm transition-all duration-300 hover:shadow-md`}
                     >
                       {isPlaying[post.id] ? (
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
+                          width="20"
+                          height="20"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
@@ -193,8 +217,8 @@ export default function TopStoriesPage() {
                       ) : (
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
+                          width="20"
+                          height="20"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
@@ -206,23 +230,24 @@ export default function TopStoriesPage() {
                         </svg>
                       )}
                     </button>
-                    <div className="ml-3 flex-grow">
-                      <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="ml-4 flex-grow">
+                      <div className="h-3 bg-stone-200 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-[#DEA82B] rounded-full"
+                          className="h-full bg-gradient-to-r from-[#D13523] to-[#FF8A7E] rounded-full"
                           style={{ width: `${post.progress}%` }}
                         />
                       </div>
                     </div>
-                    <span className="ml-3 text-sm text-gray-500">
+                    <span className="ml-4 text-sm font-medium text-stone-500">
                       {Math.floor((post.audioLength * post.progress) / 100)}s / {post.audioLength}s
                     </span>
                   </div>
                 </div>
+                
                 {/* Interaction Buttons */}
-                <div className="mt-3 flex items-center justify-between pt-2 border-t border-gray-100">
-                  <div className="flex items-center space-x-4">
-                    <button className="flex items-center text-gray-500 hover:text-[#D13523]">
+                <div className="flex items-center justify-between pt-4 border-t border-stone-100">
+                  <div className="flex items-center space-x-6">
+                    <button className="flex items-center text-stone-500 hover:text-[#D13523] transition-colors duration-300">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="18"
@@ -236,9 +261,9 @@ export default function TopStoriesPage() {
                       >
                         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
                       </svg>
-                      <span className="ml-1 text-sm">{post.likes}</span>
+                      <span className="ml-2 text-sm font-medium">{post.likes}</span>
                     </button>
-                    <button className="flex items-center text-gray-500 hover:text-[#D13523]">
+                    <button className="flex items-center text-stone-500 hover:text-[#D13523] transition-colors duration-300">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="18"
@@ -252,28 +277,9 @@ export default function TopStoriesPage() {
                       >
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                       </svg>
-                      <span className="ml-1 text-sm">{post.comments}</span>
-                    </button>
-                    <button className="flex items-center text-gray-500 hover:text-[#D13523]">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M17 1l4 4-4 4" />
-                      </svg>
-                      <span className="ml-1 text-sm">Share</span>
+                      <span className="ml-2 text-sm font-medium">{post.comments}</span>
                     </button>
                   </div>
-                  <button className="text-[#DEA82B] hover:text-[#D13523] text-sm font-medium">
-                    View Full Story
-                  </button>
                 </div>
               </div>
             ))}
