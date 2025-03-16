@@ -394,68 +394,7 @@ export default function Home() {
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* Feature showcase */}
-          <div className="mt-24 bg-white rounded-2xl shadow-xl overflow-hidden">
-            <div className="grid md:grid-cols-2">
-              <div className="p-8 md:p-12 flex flex-col justify-center">
-                <span className="inline-block text-sm uppercase tracking-wider font-semibold text-[#D13523] mb-4">Featured Technology</span>
-                <h3 className="text-3xl md:text-4xl font-bold mb-6">Emotion-Preserving Translation</h3>
-                <p className="text-lg text-stone-700 mb-6">
-                  Traditional translation loses the emotional context that makes stories meaningful. Our proprietary AI goes beyond words to capture tone, emphasis, and feeling.
-                </p>
-                <ul className="space-y-4">
-                  <li className="flex items-start">
-                    <svg className="w-6 h-6 text-[#D13523] mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="ml-3 text-stone-700">Preserves cultural idioms and references</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-6 h-6 text-[#D13523] mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="ml-3 text-stone-700">Maintains original vocal tone and emphasis</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-6 h-6 text-[#D13523] mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="ml-3 text-stone-700">Translates cultural context, not just words</span>
-                  </li>
-                </ul>
-              </div>
-              <div className="bg-stone-100 flex items-center justify-center p-8">
-                <div className="max-w-md relative">
-                  <div className="relative bg-white p-6 rounded-xl shadow-lg">
-                    <div className="flex flex-col gap-4">
-                      <div className="bg-stone-50 p-4 rounded-lg">
-                        <p className="text-sm font-medium text-stone-700">Original (Cantonese)</p>
-                        <p className="mt-2 text-stone-900">"我們在困難中學會了堅持。"</p>
-                        <div className="mt-2 flex items-center text-[#D13523]">
-                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
-                          </svg>
-                          <span className="ml-1 text-xs font-medium">Determination</span>
-                        </div>
-                      </div>
-                      <div className="bg-stone-50 p-4 rounded-lg">
-                        <p className="text-sm font-medium text-stone-700">Translated (English)</p>
-                        <p className="mt-2 text-stone-900">"Through hardship, we learned perseverance."</p>
-                        <div className="mt-2 flex items-center text-[#D13523]">
-                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
-                          </svg>
-                          <span className="ml-1 text-xs font-medium">Determination</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+     </div>
         </div>
       </div>
 
