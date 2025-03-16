@@ -7,6 +7,7 @@ import Navbar from "./component/Navbar"; // Adjust the import path as needed
 import { cn } from "@/lib/utils";
 import { DotPattern } from "@/components/magicui/dot-pattern";
 import MissionSection from "./component/Mission";
+import Meettheteam from "./component/Meettheteam";
 
 export default function Home() {
   const bgRef = useRef(null);
@@ -178,9 +179,9 @@ export default function Home() {
           ></path>
         </svg>
       ),
-      title: "Cultural Context Preservation",
+      title: "4) Explore and hear stories",
       description:
-        "Our AI recognizes cultural references, idioms, and historical context to ensure stories maintain their full meaning and significance across languages.",
+        "Listen to the array of voices and stories shared on StoryVault! Like, comment, and share your favorites.",
       image: "/kidslistening.png",
     },
   ];
@@ -395,6 +396,8 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      <Meettheteam />
 
       {/* Footer */}
       <footer className="bg-stone-900 text-stone-200">
