@@ -212,7 +212,7 @@ export default function Home() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1.2, delay: 0.3 }}
           >
-            <span className="bg-gradient-to-r from-[#D13523] via-[#E05042] to-[#FF8A7E] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#e5cdca] via-[#E05042] to-[#FF8A7E] bg-clip-text text-transparent">
               Story Vault
             </span>
           </motion.h1>
@@ -354,6 +354,8 @@ export default function Home() {
         </div>
       </div>
 
+      <Meettheteam />
+
       {/* FAQ Section */}
       <div className="py-24 md:py-32 bg-stone-100">
         <div className="container mx-auto px-6 md:px-12">
@@ -397,7 +399,7 @@ export default function Home() {
         </div>
       </div>
 
-      <Meettheteam />
+      
 
       {/* Footer */}
       <footer className="bg-stone-900 text-stone-200">
