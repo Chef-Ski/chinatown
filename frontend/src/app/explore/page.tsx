@@ -65,7 +65,7 @@ const Sidebar = ({ communities, currentSlug }) => {
         </h1>
         <p className="text-sm text-stone-600">Community Stories</p>
       </div>
-      <nav className="py-6">
+      <nav className="py-6 font-sans">
         <h2 className="px-6 mb-4 text-sm font-medium text-stone-500 uppercase tracking-wider">
           Communities
         </h2>
@@ -89,7 +89,7 @@ const Sidebar = ({ communities, currentSlug }) => {
           ))}
         </ul>
       </nav>
-      <div className="mt-auto p-6 border-t border-stone-200">
+      <div className="mt-auto p-6 border-t border-stone-200 font-sans">
         <Link href="/create">
           <button className="w-full py-3 px-6 bg-[#D13523] text-white rounded-full font-medium hover:bg-[#FF8A7E] transition-all duration-300 shadow-sm flex items-center justify-center">
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -125,35 +125,16 @@ export default function TopStoriesPage() {
         {/* Sidebar Navigation */}
         <Sidebar communities={COMMUNITIES} currentSlug="vietnam-war" />
         
-        {/* Main Content */}
-        <main className="flex-1 p-6 md:p-8 lg:p-12">
+        {/* Main Content using SAAS-friendly sans-serif font */}
+        <main className="flex-1 p-6 md:p-8 lg:p-12 font-sans">
           <header className="bg-white rounded-xl p-8 mb-8 shadow-sm border border-stone-100">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-              <div>
-                <h1 className="text-3xl font-bold tracking-tight">
-                  <span className="bg-gradient-to-r from-[#D13523] via-[#E05042] to-[#FF8A7E] bg-clip-text text-transparent">
-                    Top Stories
-                  </span>
-                </h1>
-                <p className="text-stone-600 mt-2 text-lg">
-                  Discover the most popular and impactful historical accounts.
-                </p>
-              </div>
-              
-              <div className="flex mt-6 md:mt-0 space-x-4">
-                <button className="px-6 py-3 bg-[#D13523] text-white rounded-full font-medium hover:bg-[#FF8A7E] transition-all duration-300 shadow-sm flex items-center">
-                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
-                  </svg>
-                  Featured
-                </button>
-                <button className="px-6 py-3 text-[#D13523] bg-white border-2 border-[#D13523] rounded-full font-medium hover:bg-stone-50 transition-all duration-300 shadow-sm flex items-center">
-                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                  Latest
-                </button>
-              </div>
+            <div>
+              <h1 className="text-3xl font-bold tracking-tight text-[#D13523]">
+                Top Stories
+              </h1>
+              <p className="text-stone-600 mt-2 text-lg">
+                Discover the most popular and impactful historical accounts.
+              </p>
             </div>
           </header>
           
@@ -166,7 +147,8 @@ export default function TopStoriesPage() {
               >
                 {/* User Info */}
                 <div className="flex items-center mb-4">
-                  <div className="h-12 w-12 rounded-full bg-gradient-to-r from-[#D13523] to-[#FF8A7E] overflow-hidden flex-shrink-0 shadow-sm">
+                  {/* Profile Icon with plain background */}
+                  <div className="h-12 w-12 rounded-full bg-[#D13523] overflow-hidden flex-shrink-0">
                     <div className="h-full w-full flex items-center justify-center text-white font-bold text-lg">
                       {post.user.name.charAt(0)}
                     </div>
@@ -175,9 +157,6 @@ export default function TopStoriesPage() {
                     <p className="font-medium text-stone-900">{post.user.name}</p>
                     <p className="text-sm text-stone-500">@{post.user.handle}</p>
                   </div>
-                  <span className="ml-auto text-sm text-stone-500 bg-stone-50 px-3 py-1 rounded-full">
-                    {post.timestamp}
-                  </span>
                 </div>
                 
                 {/* Post Title */}
@@ -193,11 +172,7 @@ export default function TopStoriesPage() {
                   <div className="flex items-center mb-2">
                     <button
                       onClick={() => togglePlay(post.id)}
-                      className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                        isPlaying[post.id]
-                          ? 'bg-[#D13523]'
-                          : 'bg-gradient-to-r from-[#D13523] to-[#FF8A7E]'
-                      } text-white shadow-sm transition-all duration-300 hover:shadow-md`}
+                      className="w-12 h-12 rounded-full flex items-center justify-center bg-[#D13523] text-white transition-all duration-300 hover:shadow-md"
                     >
                       {isPlaying[post.id] ? (
                         <svg
@@ -233,7 +208,7 @@ export default function TopStoriesPage() {
                     <div className="ml-4 flex-grow">
                       <div className="h-3 bg-stone-200 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-[#D13523] to-[#FF8A7E] rounded-full"
+                          className="h-full bg-[#D13523] rounded-full"
                           style={{ width: `${post.progress}%` }}
                         />
                       </div>
