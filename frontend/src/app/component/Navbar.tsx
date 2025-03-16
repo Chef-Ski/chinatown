@@ -93,12 +93,12 @@ const Navbar = () => {
             ) : (
               <>
                 <a href="/auth?mode=login">
-                  <li className="text-lg uppercase text-white px-4 py-1 border border-white rounded-lg hover:bg-[#FF5A7E]">
+                  <li className="text-lg uppercase text-white px-4 py-1 border border-white rounded-lg hover:bg-white hover:text-[#D13523] transition-all duration-300">
                     Login
                   </li>
                 </a>
                 <a href="/auth?mode=signup">
-                  <li className="text-lg uppercase text-white px-4 py-1 border border-white rounded-lg hover:bg-[#FF5A7E]">
+                  <li className="text-lg uppercase text-white px-4 py-1 border border-white rounded-lg hover:bg-white hover:text-[#D13523] transition-all duration-300">
                     Sign Up
                   </li>
                 </a>
