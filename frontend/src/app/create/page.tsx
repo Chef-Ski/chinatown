@@ -115,6 +115,17 @@ const languages = [
   { code: "zu", label: "Zulu" }
 ];
 
+const communitiesList = [
+  { id: "vietnam-war", name: "Vietnam War" },
+  { id: "pakistan-partition", name: "Pakistan Partition" },
+  { id: "north-korean-escape", name: "North Korean Escape" },
+  { id: "holocaust-survivors", name: "Holocaust Survivors" },
+  { id: "cuban-revolution", name: "Cuban Revolution" },
+  { id: "soviet-afghanistan", name: "Soviet-Afghan War" },
+  { id: "cultural-revolution", name: "Cultural Revolution" },
+  { id: "fall-of-berlin-wall", name: "Fall of Berlin Wall" },
+];
+
 const LanguageSelector = () => {
   const [selectedLang, setSelectedLang] = useState(languages[0]);
 
@@ -135,7 +146,7 @@ const LanguageSelector = () => {
             </svg>
           </span>
         </Listbox.Button>
-        <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+        <Listbox.Options className="absolute mt-1 z-40 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
           {languages.map((lang) => (
             <Listbox.Option
               key={lang.code}
@@ -150,6 +161,64 @@ const LanguageSelector = () => {
                 <>
                   <span className={`block truncate ${selected ? "font-medium" : "font-normal"}`}>
                     {lang.label}
+                  </span>
+                  {selected ? (
+                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-red-600">
+                      <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path
+                          fillRule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-3-3a1 1 0 111.414-1.414L9 11.586l6.293-6.293a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  ) : null}
+                </>
+              )}
+            </Listbox.Option>
+          ))}
+        </Listbox.Options>
+      </div>
+    </Listbox>
+  );
+};
+
+const CommunitySelector = () => {
+  const [selectedCommunity, setSelectedCommunity] = useState(communitiesList[0]);
+
+  return (
+    <Listbox value={selectedCommunity} onChange={setSelectedCommunity}>
+      <div className="relative mt-1">
+        <Listbox.Button className="relative w-full cursor-default rounded-lg border border-gray-300 bg-white py-2 pl-3 pr-10 text-left focus:outline-none focus:ring-2 focus:ring-red-500 text-base">
+          <span className="block truncate">{selectedCommunity.name}</span>
+          <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+            <svg
+              className="h-5 w-5 text-gray-400"
+              viewBox="0 0 20 20"
+              fill="none"
+              stroke="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M7 7l3 3 3-3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
+        </Listbox.Button>
+        {/* Higher z-index here so the community dropdown appears above */}
+        <Listbox.Options className="absolute mt-1 z-50 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+          {communitiesList.map((community) => (
+            <Listbox.Option
+              key={community.id}
+              value={community}
+              className={({ active }) =>
+                `cursor-default select-none relative py-2 pl-10 pr-4 ${
+                  active ? "text-white bg-red-500" : "text-gray-900"
+                }`
+              }
+            >
+              {({ selected }) => (
+                <>
+                  <span className={`block truncate ${selected ? "font-medium" : "font-normal"}`}>
+                    {community.name}
                   </span>
                   {selected ? (
                     <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-red-600">
@@ -199,8 +268,11 @@ const Page = () => {
 
     const formData = new FormData();
     formData.append("audio", file);
-    // Pass the selected language's code from the LanguageSelector
-    formData.append("translationLang", (document.querySelector('input[name="translationLang"]') as any)?.value || "en");
+    // Append selected language code from LanguageSelector
+    formData.append(
+      "translationLang",
+      (document.querySelector('input[name="translationLang"]') as any)?.value || "en"
+    );
     formData.append("gender", gender);
 
     try {
@@ -220,11 +292,10 @@ const Page = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-6 py-8">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-6 py-8 font-sans">
       <h1 className="text-center text-5xl font-bold tracking-wide text-gray-800 max-w-3xl">
-        Upload Your Story for Future Generations to Hear
+        Save And Share A Story
       </h1>
-
       <div className="mt-12 w-full max-w-lg space-y-8">
         {/* File Upload Area */}
         <label
@@ -233,15 +304,23 @@ const Page = () => {
           onDragOver={(e) => e.preventDefault()}
         >
           <CloudUpload className="w-16 h-16 text-gray-500 mb-3" />
-          <p className="text-gray-700 font-medium">Drag & Drop an audio file here</p>
+          <p className="text-gray-700 font-medium">Drag & Drop an audio or video file here</p>
           <p className="text-sm text-gray-500">or click to select a file</p>
           <input type="file" accept="audio/*" className="hidden" onChange={handleFileChange} />
         </label>
 
+        {/* Community Selection */}
+        <div className="flex flex-col">
+          <label className="mb-2 text-base font-medium text-gray-700">
+            Choose Community:
+          </label>
+          <CommunitySelector />
+        </div>
+
         {/* Translation Language Selector */}
         <div className="flex flex-col">
           <label className="mb-2 text-base font-medium text-gray-700">
-            Choose Translation Language:
+            Choose Language To Translate To:
           </label>
           <LanguageSelector />
         </div>
