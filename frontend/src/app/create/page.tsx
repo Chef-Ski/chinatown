@@ -320,7 +320,7 @@ const Page = () => {
         {/* Translation Language Selector */}
         <div className="flex flex-col">
           <label className="mb-2 text-base font-medium text-gray-700">
-            Choose Translation Language:
+            Choose Language To Translate To:
           </label>
           <LanguageSelector />
         </div>
