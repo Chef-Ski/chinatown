@@ -1,0 +1,36 @@
+{
+  "historical_summary": "The text does not reference any specific historical event or period.",
+  "search_terms": [
+    "The sentence does not provide any specific historical event",
+    "location",
+    "or time period to extract search terms from."
+  ],
+  "timeline_points": [
+    "BEFORE:\n   - Year/Date: 1492\n   - Brief Description: Christopher Columbus reaches the Americas. \n   - Why it's historically significant: This event marked the beginning of sustained European contact with the Americas, leading to a period of exploration, conquest, and colonization that lasted for centuries.",
+    "DURING:\n   - Year/Date: 1776\n   - Brief Description: The United States Declaration of Independence is signed. \n   - Why it's historically significant: This event marked the formal separation of the 13 colonies from Great Britain and the birth of the United States of America, a significant moment in world history that influenced the spread of democracy and independence movements worldwide.",
+    "AFTER:\n   - Year/Date: 1945\n   - Brief Description: The United Nations is founded. \n   - Why it's historically significant: The establishment of the United Nations marked a new era of international cooperation and diplomacy, aimed at preventing future global conflicts and promoting human rights, following the devastating effects of World War II."
+  ],
+  "images": [
+    {
+      "filename": "historical_image_1_wikimedia.jpg",
+      "path": "outputs/My video - Date_en_to_en_20250316_194921_958b6c0e/historical_context/images/historical_image_1_wikimedia.jpg",
+      "source": "Wikimedia Commons",
+      "search_term": "The sentence does not provide any specific historical event",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Map_Kingdom_Hearts_Storyline_Basis.png"
+    },
+    {
+      "filename": "historical_image_2_wikimedia.jpg",
+      "path": "outputs/My video - Date_en_to_en_20250316_194921_958b6c0e/historical_context/images/historical_image_2_wikimedia.jpg",
+      "source": "Wikimedia Commons",
+      "search_term": "location",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Sandy_Grove_Presbyterian_Church_Historical_Marker.jpg"
+    },
+    {
+      "filename": "historical_image_3_wikimedia.jpg",
+      "path": "outputs/My video - Date_en_to_en_20250316_194921_958b6c0e/historical_context/images/historical_image_3_wikimedia.jpg",
+      "source": "Wikimedia Commons",
+      "search_term": "or time period to extract search terms from.",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b1/Historical_view_of_the_progress_of_discovery_on_the_more_northern_coasts_of_America_%28microform%29_-_from_the_earliest_period_to_the_present_time_%281833%29_%2820012405923%29.jpg"
+    }
+  ]
+}

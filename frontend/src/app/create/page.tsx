@@ -281,7 +281,7 @@ const Page = () => {
     formData.append("gender", gender);
   
     try {
-      const response = await fetch("http://localhost:5000/api/upload", { // Change this URL to match your backend
+      const response = await fetch("https://super-funicular-pjwg74wwjq5jhr7j9-5000.app.github.dev/api/upload", { // Change this URL to match your backend
         method: "POST",
         body: formData,
       });

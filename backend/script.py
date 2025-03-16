@@ -2108,17 +2108,199 @@ Target language: {args.target_language}
         
         print(f"Error details saved to: {error_log}")
         raise
-    
+from flask import Flask, request, jsonify
+import traceback
+
+# Load environment variables (e.g., from .env)
+load_dotenv()
+
+app = Flask(__name__)
+
+@app.route('/api/upload', methods=['POST'])
+def upload():
+    try:
+        # Validate file presence
+        if 'audio' not in request.files:
+            return jsonify({"error": "No file provided"}), 400
+
+        file = request.files['audio']
+
+        # Save the uploaded file temporarily
+        temp_dir = tempfile.mkdtemp()
+        input_path = Path(temp_dir) / file.filename
+        file.save(str(input_path))
+
+        # Get additional form fields (adjust the keys as needed)
+        # For example, we expect 'translationLang' for target language and 'gender' for voice selection.
+        target_language = request.form.get('translationLang', 'en')
+        gender = request.form.get('gender', 'male')
+        # You can also add more fields (e.g., source_language) as desired.
+        source_language = "en"  # default source language
+        # For simplicity, we map gender to a default voice.
+        voice = "alloy" if gender.lower() == "male" else "shimmer"
+
+        # For additional features, you could also pass flags from the frontend:
+        disable_soundscape = request.form.get('disableSoundscape', 'false').lower() == 'true'
+        disable_history = request.form.get('disableHistory', 'false').lower() == 'true'
+        generate_video = request.form.get('generateVideo', 'false').lower() == 'true'
+
+        # Get API keys from environment variables
+        openai_api_key = os.environ.get("OPENAI_API_KEY")
+        freesound_api_key = os.environ.get("FREESOUND_API_KEY")
+
+        if not openai_api_key:
+            return jsonify({"error": "OpenAI API key not set"}), 500
+
+        # Call our processing pipeline function with the parameters
+        result = process_audio_file(
+            input_path=input_path,
+            source_language=source_language,
+            target_language=target_language,
+            voice=voice,
+            disable_soundscape=disable_soundscape,
+            disable_history=disable_history,
+            generate_video=generate_video,
+            openai_api_key=openai_api_key,
+            freesound_api_key=freesound_api_key
+        )
+
+        return jsonify(result)
+
+    except Exception as e:
+        return jsonify({
+            "error": str(e),
+            "trace": traceback.format_exc()
+        }), 500
+
+def process_audio_file(input_path: Path,
+                       source_language: str,
+                       target_language: str,
+                       voice: str,
+                       disable_soundscape: bool,
+                       disable_history: bool,
+                       generate_video: bool,
+                       openai_api_key: str,
+                       freesound_api_key: str):
+    """
+    Mimics your main_fixed() processing pipeline but takes parameters from the Flask request.
+    """
+    # Create an instance of your audio processing class
+    audio_processor = audio()
+
+    # Create a unique output folder for the job
+    job_dir = audio_processor.create_output_folder(str(input_path), source_language, target_language)
+    output_path = job_dir / f"translated_audio.mp3"
+
+    result = {
+        "input_file": str(input_path),
+        "output_folder": str(job_dir),
+        "output_file": str(output_path),
+        "source_language": source_language,
+        "target_language": target_language,
+        "voice": voice
+    }
+
+    # Check if the uploaded file is a video (by extension)
+    file_ext = input_path.suffix.lower()
+    video_formats = ['.mp4', '.mov', '.avi', '.mkv', '.wmv', '.flv']
+    audio_path = str(input_path)
+    if file_ext in video_formats:
+        temp_audio = os.path.join(tempfile.gettempdir(), f"{input_path.stem}.mp3")
+        audio_path = audio_processor.extract_audio_from_video(str(input_path), temp_audio)
+        result["extracted_audio"] = audio_path
+
+    # Step 2: Transcribe the audio using OpenAI Whisper API
+    transcribed_text = audio_processor.transcribe_audio(audio_path, openai_api_key)
+    result["transcription"] = transcribed_text
+    transcription_file = job_dir / "transcription.txt"
+    with open(transcription_file, "w", encoding="utf-8") as f:
+        f.write(transcribed_text)
+    result["transcription_file"] = str(transcription_file)
+
+    # Step 2.5: Extract historical context if not disabled
+    if not disable_history:
+        history_result = extract_historical_context(transcribed_text, job_dir, openai_api_key)
+        result["historical_context"] = history_result
+
+    # Step 3: Analyze text for sound effect opportunities (if enabled)
+    sound_opportunities = None
+    if not disable_soundscape:
+        sound_opportunities = audio_processor.analyze_text_for_sounds_multilingual(
+            transcribed_text,
+            source_language,
+            openai_api_key
+        )
+        sound_opportunities_file = job_dir / "sound_opportunities.json"
+        with open(sound_opportunities_file, "w", encoding="utf-8") as f:
+            json.dump(sound_opportunities, f, indent=2)
+        result["sound_opportunities_file"] = str(sound_opportunities_file)
+
+    # Step 4: Translate the transcribed text
+    translated_text = audio_processor.translate_text(transcribed_text, target_language, openai_api_key)
+    result["translation"] = translated_text
+    translation_file = job_dir / "translation.txt"
+    with open(translation_file, "w", encoding="utf-8") as f:
+        f.write(translated_text)
+    result["translation_file"] = str(translation_file)
+
+    # Step 5: Generate speech (text-to-speech) from the translated text
+    output_file = audio_processor.text_to_speech(
+        translated_text,
+        voice,
+        str(output_path),
+        openai_api_key
+    )
+    result["output_file"] = str(output_file)
+
+    # Step 6: If soundscape is enabled, fetch sound effects and layer them in
+    final_audio_path = output_file
+    if not disable_soundscape and sound_opportunities:
+        sound_map = audio_processor.fetch_sound_effects_from_freesound(
+            sound_opportunities,
+            freesound_api_key
+        )
+        if sound_map:
+            enhanced_audio = audio_processor.create_dynamic_soundscape_fixed(
+                output_file,
+                sound_opportunities,
+                sound_map
+            )
+            final_audio_path = enhanced_audio
+            result["enhanced_audio"] = final_audio_path
+    result["final_audio"] = final_audio_path
+
+    # Step 7: Optionally, generate video from translated text (if enabled)
+    if generate_video and openai_api_key:
+        image_generator = image_generation(openai_api_key)
+        images_folder = job_dir / "scene_images"
+        images_folder.mkdir(exist_ok=True)
+        scene_result = image_generator.generate_video_from_text(
+            translated_text,
+            str(images_folder)
+        )
+        result["scene_images"] = scene_result["image_paths"]
+        result["gallery_path"] = scene_result["gallery_path"]
+
+    # Optionally, create a README file with job details (simplified here)
+    readme_content = (
+        f"# Translation Job Details\n\n"
+        f"Input file: {input_path}\n"
+        f"Created on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+        f"Source language: {source_language}\n"
+        f"Target language: {target_language}\n"
+        f"Output file: {output_file}\n"
+    )
+    readme_file = job_dir / "README.md"
+    with open(readme_file, "w", encoding="utf-8") as f:
+        f.write(readme_content)
+    result["readme_file"] = str(readme_file)
+
+    return result
+
+if __name__ == '__main__':
+    # Run the Flask server on port 5000 (adjust as needed)
+    app.run(host='0.0.0.0', port=5000)  
     # This code integrates the HistoricalContextExtractor with the existing audio processing pipeline
 # It will be added to the main_fixed function
 
-if __name__ == "__main__":
-
-    try:
-        # Use the fixed main function
-        result = main_fixed()
-    except Exception as e:
-        print("error beyotch")
-        import traceback
-        traceback.print_exc()
 
