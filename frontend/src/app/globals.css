@@ -9,6 +9,11 @@
 
 }
 
+#features {
+  background-color: rgb(241, 202, 202);
+  
+}
+
 .initialbg {
   position: relative;
   z-index: 1;

@@ -46,21 +46,21 @@ export default function Home() {
         "Story Vault helped me preserve my grandmother's stories about her journey from China to America in the 1950s. The voice translation feature means my children can hear her stories in English while I can listen in Cantonese.",
       author: "Emily Chen",
       role: "Community Member",
-      image: "/testimonial-1.jpg",
+      image: "/headshot1.png",
     },
     {
       quote:
         "The translation technology bridged a gap I thought would always exist. For the first time, I truly understand my grandfather's war experiences in his native tongue, yet hear them in mine. This isn't just an app—it's preserving our family's soul.",
       author: "Michael Wong",
       role: "Family Historian",
-      image: "/testimonial-2.jpg",
+      image: "/headshot2.png",
     },
     {
       quote:
         "We implemented Story Vault across five Chinatown community centers. In just months, we've archived over 300 stories that would have been lost forever. The multilingual access has reconnected families separated by language barriers for generations.",
       author: "Dr. Sarah Lin",
       role: "Cultural Preservation Director",
-      image: "/testimonial-3.jpg",
+      image: "/headshot3.png",
     },
   ];
 
@@ -98,7 +98,7 @@ export default function Home() {
     {
       icon: (
         <svg
-          className="w-16 h-16 text-[#D13523]"
+          className="w-8 h-auto text-[#D13523]"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -112,15 +112,15 @@ export default function Home() {
           ></path>
         </svg>
       ),
-      title: "Crystal-Clear Voice Recording",
+      title: "1) Save the stories of loved ones",
       description:
-        "Capture stories with studio-quality audio featuring advanced noise reduction and voice enhancement specifically optimized for elderly speakers.",
-      image: "/feature-recording.jpg",
+        "Capture your stories to pass down to later generations and continue your legacy for your loved ones to hear.",
+      image: "/microphone.png",
     },
     {
       icon: (
         <svg
-          className="w-16 h-16 text-[#D13523]"
+          className="w-8 h-auto text-[#D13523]"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -134,15 +134,15 @@ export default function Home() {
           ></path>
         </svg>
       ),
-      title: "Emotion-Preserving Translation",
+      title: "2) Customize your AI experience",
       description:
         "Our proprietary AI preserves tone, emotion, and cultural context across 47 languages, maintaining the authenticity of each storyteller's voice.",
-      image: "/feature-translation.jpg",
+      image: "/aiimg.png",
     },
     {
       icon: (
         <svg
-          className="w-16 h-16 text-[#D13523]"
+          className="w-8 h-auto text-[#D13523]"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -156,15 +156,15 @@ export default function Home() {
           ></path>
         </svg>
       ),
-      title: "Multi-Generation Sharing",
+      title: "3) Share with the world",
       description:
-        "Create private family archives that connect grandparents, parents, and grandchildren through interactive storytelling experiences across different languages.",
-      image: "/feature-family.jpg",
+        "Find and connect with people who have similar experiences to yours!",
+      image: "/sharingimg.png",
     },
     {
       icon: (
         <svg
-          className="w-16 h-16 text-[#D13523]"
+          className="w-8 h-auto text-[#D13523]"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -181,7 +181,7 @@ export default function Home() {
       title: "Cultural Context Preservation",
       description:
         "Our AI recognizes cultural references, idioms, and historical context to ensure stories maintain their full meaning and significance across languages.",
-      image: "/feature-context.jpg",
+      image: "/kidslistening.png",
     },
   ];
 
@@ -197,12 +197,12 @@ export default function Home() {
         {/* Hero Content */}
         <div className="relative z-10 flex flex-col items-center text-center px-6">
           <motion.div
-            className="mb-8 p-2 px-6 bg-white/80 backdrop-blur-sm rounded-full shadow-sm inline-block"
+            className="mb-8 p-2 px-6 bg-white backdrop-blur-sm rounded-full shadow-sm inline-block"
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
-            <span className="text-sm md:text-base font-medium text-[#D13523]">   Preserving Cultures and Communitys Through Stories</span>
+            <span className="text-sm md:text-base font-medium text-[#D13523]">   Preserving Cultures and Communities Through Stories</span>
           </motion.div>
 
           <motion.h1
