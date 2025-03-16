@@ -5,6 +5,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
 import Navbar from "./component/Navbar"; // Adjust the import path as needed
+import { cn } from "@/lib/utils";
+import { DotPattern } from "@/components/magicui/dot-pattern";
 
 export default function Home() {
   const bgRef = useRef(null);
@@ -48,6 +50,14 @@ export default function Home() {
       );
     });
   }, []);
+
+  // Smooth scroll handler for the arrow
+  const handleScrollToSection = (sectionId) => {
+    const section = document.querySelector(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   // Testimonial state
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -193,34 +203,17 @@ export default function Home() {
     <div className="overflow-x-hidden bg-stone-50">
       <Navbar />
 
-      {/* Modified Hero Section */}
-      <div className="relative h-screen overflow-hidden">
-        <div className="absolute inset-0 bg-white">
-          <div className="absolute w-full h-full opacity-20 mix-blend-overlay">
-            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-              <defs>
-                <pattern
-                  id="smallGrid"
-                  width="8"
-                  height="8"
-                  patternUnits="userSpaceOnUse"
-                >
-                  <path
-                    d="M8 0H0V8"
-                    fill="none"
-                    stroke="#e5e5e5"
-                    strokeWidth="0.5"
-                  />
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#smallGrid)" />
-            </svg>
-          </div>
+      {/* Hero Section */}
+      <div className="relative h-screen flex items-center justify-center overflow-hidden">
+        {/* Background Dot Pattern */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-40">
+          <DotPattern className="absolute w-full h-full [mask-image:radial-gradient(circle_at_center,white,transparent)]" />
         </div>
 
-        <div className="relative z-10 flex flex-col items-center justify-center h-screen px-4 md:px-12">
+        {/* Hero Content */}
+        <div className="relative z-10 flex flex-col items-center text-center">
           <motion.h2
-            className="hero-title text-7xl md:text-9xl font-extrabold uppercase tracking-tight text-center bg-gradient-to-r from-red-400 via-red-500 to-red-600 bg-clip-text text-transparent"
+            className="hero-title text-7xl md:text-9xl font-extrabold uppercase tracking-tight bg-gradient-to-r from-red-400 via-red-500 to-red-600 bg-clip-text text-transparent"
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1.2, delay: 0.3 }}
@@ -229,7 +222,7 @@ export default function Home() {
           </motion.h2>
 
           <motion.h1
-            className="hero-subtitle mt-8 text-black text-center max-w-5xl uppercase text-2xl md:text-3xl font-semibold tracking-normal"
+            className="hero-subtitle mt-6 text-black text-center max-w-5xl uppercase text-2xl md:text-3xl font-semibold tracking-normal"
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1, delay: 0.8 }}
@@ -237,66 +230,50 @@ export default function Home() {
             Preserving stories, bridging generations
           </motion.h1>
 
+          {/* CTA Button */}
           <motion.div
-  className="hero-cta w-full flex justify-center items-center mt-16 md:mt-20"
-  initial={{ y: 30, opacity: 0 }}
-  animate={{ y: 0, opacity: 1 }}
-  transition={{ duration: 0.8, delay: 1.3 }}
->
-  <div className="relative inline-flex group">
-    <div className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#FF8A7E] to-[#D13523] rounded-full blur-lg group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-pulse"></div>
-    <a
-      href="#"
-      title="Start preserving your stories"
-      className="relative inline-flex items-center justify-center px-8 md:px-12 py-4 md:py-6 
-                 font-bold text-white text-xl md:text-2xl 
-                 transition-all duration-200 
-                 bg-[#D13523] font-pj 
-                 rounded-full
-                 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 
-                 hover:bg-[#FF8A7E]"
-      role="button"
-    >
-      Start Preserving Now
-      <svg
-        className="w-5 h-5 ml-2"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M14 5l7 7m0 0l-7 7m7-7H3"
-        ></path>
-      </svg>
-    </a>
-  </div>
-</motion.div>
-
-
-          <div className="absolute bottom-10 w-full flex justify-center">
-            <a href="#mission" className="text-black animate-bounce">
-              <svg
-                className="w-8 h-8"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                ></path>
-              </svg>
+            className="hero-cta w-full flex justify-center mt-12 md:mt-16"
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1.3 }}
+          >
+            <a
+              href="#"
+              className="relative px-8 py-4 text-xl md:text-2xl font-bold text-white bg-[#D13523] rounded-full shadow-lg hover:bg-[#FF8A7E] transition-all duration-300"
+            >
+              Start Preserving Now
             </a>
-          </div>
+          </motion.div>
         </div>
       </div>
+
+      {/* Scroll Down Indicator with Handle */}
+      <button
+  onClick={() => handleScrollToSection("#mission")}
+  className="block mx-auto text-black focus:outline-none mt-[-50px]"
+>
+  <svg
+    className="w-8 h-8 animate-bounce"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    {/* Vertical line */}
+    <line x1="12" y1="2" x2="12" y2="16" strokeWidth="2" strokeLinecap="round" />
+    {/* Arrowhead */}
+    <polyline
+      points="8,12 12,16 16,12"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+</button>
+
+
+
+
 
       {/* Mission Section */}
       <div id="mission" className="reveal-section py-24 bg-stone-50">
@@ -308,16 +285,10 @@ export default function Home() {
                 <span className="absolute -bottom-3 left-0 w-24 h-2 bg-[#D13523]"></span>
               </h2>
               <p className="text-lg md:text-2xl font-normal pt-12 text-neutral-700 leading-relaxed">
-                We are dedicated to preserving the rich cultural heritage of
-                Chinatown by leveraging technology to bridge language barriers
-                and connect generations. Through innovative translation and
-                storytelling tools, we ensure that wisdom, traditions, and
-                personal histories are never lost to time or language differences.
+                We are dedicated to preserving the rich cultural heritage of Chinatown by leveraging technology to bridge language barriers and connect generations. Through innovative translation and storytelling tools, we ensure that wisdom, traditions, and personal histories are never lost to time or language differences.
               </p>
               <p className="text-lg md:text-2xl font-normal pt-6 text-neutral-700 leading-relaxed">
-                Every family has stories worth preserving. Our platform makes it
-                possible to capture, translate, and share these invaluable
-                narratives across languages and generations.
+                Every family has stories worth preserving. Our platform makes it possible to capture, translate, and share these invaluable narratives across languages and generations.
               </p>
               <a
                 href="#features"
@@ -325,35 +296,13 @@ export default function Home() {
               >
                 <span className="absolute bottom-0 left-0 w-full h-1 transition-all duration-150 ease-in-out bg-[#D13523] group-hover:h-full"></span>
                 <span className="absolute right-0 pr-4 duration-200 ease-out group-hover:translate-x-12">
-                  <svg
-                    className="w-5 h-5 text-black"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M14 5l7 7m0 0l-7 7m7-7H3"
-                    ></path>
+                  <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                   </svg>
                 </span>
                 <span className="absolute left-0 pl-2.5 -translate-x-12 group-hover:translate-x-0 ease-out duration-200">
-                  <svg
-                    className="w-5 h-5 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M14 5l7 7m0 0l-7 7m7-7H3"
-                    ></path>
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                   </svg>
                 </span>
                 <span className="relative w-full text-left transition-colors duration-200 ease-in-out group-hover:text-white">
@@ -380,17 +329,12 @@ export default function Home() {
             <h2 className="text-4xl md:text-6xl font-bold">How It Works</h2>
             <div className="w-24 h-2 bg-[#D13523] mx-auto mt-4"></div>
             <p className="text-xl text-neutral-600 max-w-3xl mx-auto mt-6">
-              Our innovative platform makes it easy to preserve family stories
-              across language barriers.
+              Our innovative platform makes it easy to preserve family stories across language barriers.
             </p>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
             {features.map((feature, index) => (
-              <div
-                key={index}
-                className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
-              >
+              <div key={index} className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
                 <div className="mb-4">{feature.icon}</div>
                 <h3 className="text-2xl font-bold mb-3">{feature.title}</h3>
                 <p className="text-neutral-600">{feature.description}</p>
@@ -410,15 +354,10 @@ export default function Home() {
                 <span className="absolute -bottom-3 right-0 w-24 h-2 bg-[#D13523]"></span>
               </h2>
               <p className="text-lg md:text-2xl font-normal pt-12 text-neutral-700 leading-relaxed">
-                Language barriers shouldn't prevent stories from being shared.
-                Our translation technology allows grandchildren to hear their
-                grandparents' stories in their own language, preserving the
-                emotional connection even when they don't share a common tongue.
+                Language barriers shouldn't prevent stories from being shared. Our translation technology allows grandchildren to hear their grandparents' stories in their own language, preserving the emotional connection even when they don't share a common tongue.
               </p>
               <p className="text-lg md:text-2xl font-normal pt-6 text-neutral-700 leading-relaxed">
-                With Story Vault, cultural wisdom and family histories can be
-                preserved authentically and accessed by future generations,
-                regardless of language differences.
+                With Story Vault, cultural wisdom and family histories can be preserved authentically and accessed by future generations, regardless of language differences.
               </p>
               <a
                 href="#testimonials"
@@ -426,35 +365,13 @@ export default function Home() {
               >
                 <span className="absolute bottom-0 left-0 w-full h-1 transition-all duration-150 ease-in-out bg-[#D13523] group-hover:h-full"></span>
                 <span className="absolute right-0 pr-4 duration-200 ease-out group-hover:translate-x-12">
-                  <svg
-                    className="w-5 h-5 text-black"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M14 5l7 7m0 0l-7 7m7-7H3"
-                    ></path>
+                  <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                   </svg>
                 </span>
                 <span className="absolute left-0 pl-2.5 -translate-x-12 group-hover:translate-x-0 ease-out duration-200">
-                  <svg
-                    className="w-5 h-5 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M14 5l7 7m0 0l-7 7m7-7H3"
-                    ></path>
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                   </svg>
                 </span>
                 <span className="relative w-full text-left transition-colors duration-200 ease-in-out group-hover:text-white">
@@ -464,11 +381,7 @@ export default function Home() {
             </div>
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-to-r from-[#FF8A7E] to-[#D13523] opacity-40 blur-lg rounded-lg"></div>
-              <img
-                src="/img4.png"
-                alt="Family connecting across generations"
-                className="relative w-full max-w-md xl:max-w-lg h-auto shadow-xl rounded-lg"
-              />
+              <img src="/img4.png" alt="Family connecting across generations" className="relative w-full max-w-md xl:max-w-lg h-auto shadow-xl rounded-lg" />
             </div>
           </div>
         </div>
@@ -484,7 +397,6 @@ export default function Home() {
               Hear from families who have preserved their heritage with Story Vault.
             </p>
           </div>
-
           <div className="relative max-w-4xl mx-auto">
             <div className="relative bg-neutral-700 p-8 md:p-12 rounded-xl shadow-2xl">
               <svg
@@ -496,81 +408,45 @@ export default function Home() {
               >
                 <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
               </svg>
-
               <p className="text-xl md:text-2xl mb-8 relative z-10">
                 "{testimonials[currentTestimonial].quote}"
               </p>
-
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-semibold text-xl">
-                    {testimonials[currentTestimonial].author}
-                  </p>
-                  <p className="text-neutral-400">
-                    {testimonials[currentTestimonial].role}
-                  </p>
+                  <p className="font-semibold text-xl">{testimonials[currentTestimonial].author}</p>
+                  <p className="text-neutral-400">{testimonials[currentTestimonial].role}</p>
                 </div>
-
                 <div className="flex space-x-3">
                   <button
                     onClick={() =>
-                      setCurrentTestimonial((prev) =>
-                        prev === 0 ? testimonials.length - 1 : prev - 1
-                      )
+                      setCurrentTestimonial((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1))
                     }
                     className="p-2 rounded-full bg-neutral-600 hover:bg-[#D13523] transition-colors duration-200"
                   >
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M15 19l-7-7 7-7"
-                      ></path>
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
                     </svg>
                   </button>
                   <button
                     onClick={() =>
-                      setCurrentTestimonial((prev) =>
-                        prev === testimonials.length - 1 ? 0 : prev + 1
-                      )
+                      setCurrentTestimonial((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1))
                     }
                     className="p-2 rounded-full bg-neutral-600 hover:bg-[#D13523] transition-colors duration-200"
                   >
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M9 5l7 7-7 7"
-                      ></path>
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
                     </svg>
                   </button>
                 </div>
               </div>
             </div>
-
             <div className="flex justify-center mt-6 space-x-2">
               {testimonials.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentTestimonial(index)}
                   className={`w-3 h-3 rounded-full ${
-                    currentTestimonial === index
-                      ? "bg-[#D13523]"
-                      : "bg-neutral-600"
+                    currentTestimonial === index ? "bg-[#D13523]" : "bg-neutral-600"
                   }`}
                   aria-label={`Go to testimonial ${index + 1}`}
                 />
@@ -590,7 +466,6 @@ export default function Home() {
               Everything you need to know about Story Vault.
             </p>
           </div>
-
           <div className="max-w-3xl mx-auto">
             {faqs.map((faq, index) => (
               <div key={index} className="mb-6">
@@ -600,32 +475,20 @@ export default function Home() {
                     activeFAQ === index ? "bg-neutral-200" : "bg-white"
                   } shadow-md hover:shadow-lg transition-all duration-200`}
                 >
-                  <span className="text-xl font-semibold">
-                    {faq.question}
-                  </span>
+                  <span className="text-xl font-semibold">{faq.question}</span>
                   <svg
-                    className={`w-6 h-6 transform transition-transform duration-200 ${
-                      activeFAQ === index ? "rotate-180" : ""
-                    }`}
+                    className={`w-6 h-6 transform transition-transform duration-200 ${activeFAQ === index ? "rotate-180" : ""}`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M19 9l-7 7-7-7"
-                    ></path>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
                   </svg>
                 </button>
-
                 <div
                   className={`overflow-hidden transition-all duration-300 ${
-                    activeFAQ === index
-                      ? "max-h-96 opacity-100"
-                      : "max-h-0 opacity-0"
+                    activeFAQ === index ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
                   }`}
                 >
                   <div className="p-6 bg-white rounded-b-lg shadow-md">
@@ -645,10 +508,8 @@ export default function Home() {
             Ready to Preserve Your Family's Legacy?
           </h2>
           <p className="text-xl text-neutral-300 max-w-2xl mx-auto mb-12">
-            Don't let valuable stories and cultural wisdom be lost to time.
-            Start documenting your family's unique heritage today.
+            Don't let valuable stories and cultural wisdom be lost to time. Start documenting your family's unique heritage today.
           </p>
-
           <div className="flex flex-col md:flex-row gap-4 justify-center">
             <a
               href="#"
@@ -662,12 +523,7 @@ export default function Home() {
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M14 5l7 7m0 0l-7 7m7-7H3"
-                ></path>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
               </svg>
             </a>
             <a

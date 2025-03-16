@@ -23,18 +23,18 @@ const Navbar = () => {
             <a href="/">
               <img src="/postcss.config.png" alt="home logo" className="w-20 h-auto" />
             </a>
-            <li>CREATE</li>
-            <li>EXPLORE</li>
+            <li className="text-lg text-white">CREATE</li>
+            <li className="text-lg text-white">EXPLORE</li>
           </div>
 
           <div className="flex flex-row items-center gap-x-4 text-lg text-white">
             <a href="">
-              <li className="border-2 border-white rounded-2xl px-4 py-1 hover:bg-[#FF5A41]">
+              <li className="text-lg text-white px-4 py-1 hover:bg-[#FF5A41]">
                 Login
               </li>
             </a>
             <a href="">
-              <li className="border-2 border-white rounded-2xl px-4 py-1 hover:bg-[#FF5A41]">
+              <li className="text-lg text-white px-4 py-1 hover:bg-[#FF5A41]">
                 Sign Up
               </li>
             </a>
